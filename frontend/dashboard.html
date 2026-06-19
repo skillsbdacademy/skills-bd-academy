@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ড্যাশবোর্ড - Skills BD Academy</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="dashboard-layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span>🎓</span>
+      <span>Skills BD <strong>Academy</strong></span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-page="overview">
+        <i class="fas fa-home"></i> ওভারভিউ
+      </a>
+      <a href="#" class="nav-item" data-page="myCourses">
+        <i class="fas fa-book-open"></i> আমার কোর্স
+      </a>
+      <a href="#" class="nav-item" data-page="payments">
+        <i class="fas fa-credit-card"></i> পেমেন্ট ইতিহাস
+      </a>
+      <a href="#" class="nav-item" data-page="profile">
+        <i class="fas fa-user"></i> প্রোফাইল
+      </a>
+      <a href="/courses.html" class="nav-item">
+        <i class="fas fa-graduation-cap"></i> সব কোর্স
+      </a>
+      <a href="#" class="nav-item logout-btn" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> লগআউট
+      </a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="dashboard-main">
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="topbar-right">
+        <div class="user-info">
+          <div class="user-avatar-sm" id="topAvatar">অ</div>
+          <span id="topUserName">লোড হচ্ছে...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGES -->
+
+    <!-- OVERVIEW PAGE -->
+    <div class="page active" id="page-overview">
+      <div class="page-header">
+        <h1>স্বাগতম, <span id="welcomeName">শিক্ষার্থী</span>! 👋</h1>
+        <p>আপনার লার্নিং জার্নি চালিয়ে যান</p>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card green">
+          <div class="stat-icon"><i class="fas fa-book"></i></div>
+          <div class="stat-info">
+            <span class="stat-num" id="totalCourses">০</span>
+            <span class="stat-label">মোট কোর্স</span>
+          </div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-icon"><i class="fas fa-play-circle"></i></div>
+          <div class="stat-info">
+            <span class="stat-num" id="activeCourses">০</span>
+            <span class="stat-label">চলমান কোর্স</span>
+          </div>
+        </div>
+        <div class="stat-card orange">
+          <div class="stat-icon"><i class="fas fa-clock"></i></div>
+          <div class="stat-info">
+            <span class="stat-num" id="pendingPayments">০</span>
+            <span class="stat-label">পেন্ডিং পেমেন্ট</span>
+          </div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-icon"><i class="fas fa-certificate"></i></div>
+          <div class="stat-info">
+            <span class="stat-num" id="completedCourses">০</span>
+            <span class="stat-label">সম্পন্ন কোর্স</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENROLLED COURSES -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <h2><i class="fas fa-book-open"></i> আমার কোর্সসমূহ</h2>
+          <a href="/courses.html" class="btn btn-primary btn-sm">নতুন কোর্স কিনুন</a>
+        </div>
+        <div id="enrolledCoursesList">
+          <div class="empty-state">
+            <i class="fas fa-book"></i>
+            <p>এখনো কোনো কোর্সে ভর্তি হননি</p>
+            <a href="/courses.html" class="btn btn-primary">কোর্স দেখুন</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECENT PAYMENTS -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <h2><i class="fas fa-credit-card"></i> সাম্প্রতিক পেমেন্ট</h2>
+        </div>
+        <div id="recentPayments">
+          <div class="empty-state">
+            <i class="fas fa-receipt"></i>
+            <p>কোনো পেমেন্ট নেই</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MY COURSES PAGE -->
+    <div class="page" id="page-myCourses">
+      <div class="page-header">
+        <h1>আমার কোর্সসমূহ</h1>
+        <p>আপনার ক্রয় করা সব কোর্স</p>
+      </div>
+      <div class="courses-grid-dash" id="myCoursesGrid">
+        <div class="empty-state">
+          <i class="fas fa-graduation-cap"></i>
+          <p>এখনো কোনো কোর্সে ভর্তি হননি</p>
+          <a href="/courses.html" class="btn btn-primary">কোর্স কিনুন</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENTS PAGE -->
+    <div class="page" id="page-payments">
+      <div class="page-header">
+        <h1>পেমেন্ট ইতিহাস</h1>
+        <p>আপনার সব পেমেন্টের তালিকা</p>
+      </div>
+      <div class="section-card">
+        <div id="paymentsList">
+          <div class="loading-state">
+            <i class="fas fa-spinner fa-spin"></i> লোড হচ্ছে...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div class="page" id="page-profile">
+      <div class="page-header">
+        <h1>আমার প্রোফাইল</h1>
+        <p>আপনার তথ্য আপডেট করুন</p>
+      </div>
+
+      <div class="profile-grid">
+        <!-- PROFILE INFO -->
+        <div class="section-card">
+          <h2><i class="fas fa-user"></i> ব্যক্তিগত তথ্য</h2>
+          <div id="profileAlertBox"></div>
+          <div class="profile-avatar-box">
+            <div class="profile-avatar" id="profileAvatar">অ</div>
+            <div>
+              <h3 id="profileName">লোড হচ্ছে...</h3>
+              <span id="profileRole" class="role-badge">শিক্ষার্থী</span>
+            </div>
+          </div>
+
+          <form id="profileForm">
+            <div class="form-group">
+              <label>পূর্ণ নাম</label>
+              <div class="input-wrapper">
+                <i class="fas fa-user"></i>
+                <input type="text" id="profileNameInput" placeholder="আপনার নাম">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>ইমেইল (পরিবর্তন করা যাবে না)</label>
+              <div class="input-wrapper">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="profileEmail" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>মোবাইল নম্বর</label>
+              <div class="input-wrapper">
+                <i class="fas fa-phone"></i>
+                <input type="tel" id="profilePhone" placeholder="01XXXXXXXXX">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i> প্রোফাইল আপডেট করুন
+            </button>
+          </form>
+        </div>
+
+        <!-- CHANGE PASSWORD -->
+        <div class="section-card">
+          <h2><i class="fas fa-lock"></i> পাসওয়ার্ড পরিবর্তন</h2>
+          <div id="passwordAlertBox"></div>
+          <form id="passwordForm">
+            <div class="form-group">
+              <label>পুরনো পাসওয়ার্ড</label>
+              <div class="input-wrapper">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="oldPassword" placeholder="পুরনো পাসওয়ার্ড">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>নতুন পাসওয়ার্ড</label>
+              <div class="input-wrapper">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="newPassword" placeholder="নতুন পাসওয়ার্ড">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>নতুন পাসওয়ার্ড নিশ্চিত করুন</label>
+              <div class="input-wrapper">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="confirmNewPassword" placeholder="আবার লিখুন">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-key"></i> পাসওয়ার্ড পরিবর্তন করুন
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="/js/auth.js"></script>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

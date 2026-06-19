@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ক্লাস দেখুন - Skills BD Academy</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body style="background:var(--gray-900);color:white;margin:0">
+
+<style>
+.learn-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  min-height: 100vh;
+}
+.learn-main {
+  display: flex;
+  flex-direction: column;
+}
+.learn-topbar {
+  background: var(--gray-800);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--gray-700);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.learn-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+}
+.learn-course-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gray-300);
+  max-width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.video-area {
+  background: black;
+  position: relative;
+}
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.video-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  background: var(--gray-800);
+  flex-direction: column;
+  gap: 16px;
+  color: var(--gray-400);
+}
+.lesson-info {
+  padding: 24px;
+  background: var(--gray-800);
+  border-bottom: 1px solid var(--gray-700);
+}
+.lesson-info h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.lesson-info p {
+  font-size: 14px;
+  color: var(--gray-400);
+  line-height: 1.7;
+}
+.lesson-nav {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+/* SIDEBAR */
+.learn-sidebar {
+  background: var(--gray-800);
+  border-left: 1px solid var(--gray-700);
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--gray-700);
+}
+.sidebar-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.progress-bar-learn {
+  height: 6px;
+  background: var(--gray-600);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-bar-learn-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+.progress-text {
+  font-size: 12px;
+  color: var(--gray-400);
+  margin-top: 6px;
+}
+.lesson-list {
+  padding: 12px;
+}
+.lesson-list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-bottom: 4px;
+}
+.lesson-list-item:hover {
+  background: var(--gray-700);
+}
+.lesson-list-item.active {
+  background: rgba(22,163,74,0.2);
+  border: 1px solid rgba(22,163,74,0.3);
+}
+.lesson-list-item.completed {
+  opacity: 0.7;
+}
+.lesson-list-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gray-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: white;
+}
+.lesson-list-item.active .lesson-list-num {
+  background: var(--primary);
+}
+.lesson-list-item.completed .lesson-list-num {
+  background: var(--primary);
+}
+.lesson-list-info h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.3;
+}
+.lesson-list-info p {
+  font-size: 12px;
+  color: var(--gray-400);
+  margin-top: 2px;
+}
+.resources-section {
+  padding: 24px;
+  background: var(--gray-800);
+}
+.resources-section h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: white;
+}
+.resource-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--gray-700);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  color: white;
+}
+.resource-item:hover {
+  background: var(--gray-600);
+}
+.resource-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--primary-light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+@media (max-width: 768px) {
+  .learn-layout { grid-template-columns: 1fr; }
+  .learn-sidebar {
+    position: static;
+    height: auto;
+    border-left: none;
+    border-top: 1px solid var(--gray-700);
+  }
+}
+</style>
+
+<div class="learn-layout" id="learnLayout">
+  <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;grid-column:1/-1">
+    <div style="text-align:center">
+      <i class="fas fa-spinner fa-spin" style="font-size:40px;color:var(--primary)"></i>
+      <p style="margin-top:16px;color:var(--gray-400)">লোড হচ্ছে...</p>
+    </div>
+  </div>
+</div>
+
+<script src="/js/auth.js"></script>
+<script>
+const courseId = new URLSearchParams(window.location.search).get('id');
+const isFree = new URLSearchParams(window.location.search).get('free') === 'true';
+
+if (!courseId) window.location.href = '/courses.html';
+
+let courseData = null;
+let currentLesson = 0;
+let completedLessons = new Set();
+
+const getYouTubeId = (url) => {
+  if (!url) return null;
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/);
+  return match ? match[1] : null;
+};
+
+const loadCourse = async () => {
+  let data;
+  if (isFree) {
+    data = await apiCall(`/courses/${courseId}`);
+  } else {
+    if (!getToken()) {
+      window.location.href = `/login.html`;
+      return;
+    }
+    data = await apiCall(`/courses/${courseId}/learn`);
+  }
+
+  if (!data.success) {
+    if (data.message === 'এই কোর্সটি কিনুন') {
+      window.location.href = `/course-details.html?id=${courseId}`;
+    } else {
+      window.location.href = '/courses.html';
+    }
+    return;
+  }
+
+  courseData = data.course;
+  document.title = `${courseData.title} - Skills BD Academy`;
+  renderLearnPage();
+};
+
+const renderLearnPage = () => {
+  const lessons = courseData.lessons?.sort((a,b) => a.order - b.order) || [];
+
+  document.getElementById('learnLayout').innerHTML = `
+    <!-- MAIN -->
+    <div class="learn-main">
+      <!-- TOPBAR -->
+      <div class="learn-topbar">
+        <a href="/index.html" class="learn-brand">
+          🎓 Skills BD Academy
+        </a>
+        <div class="learn-course-title">${courseData.title}</div>
+        <a href="/dashboard.html" class="btn btn-outline btn-sm" style="color:white;border-color:var(--gray-600)">
+          <i class="fas fa-arrow-left"></i> ড্যাশবোর্ড
+        </a>
+      </div>
+
+      <!-- VIDEO -->
+      <div class="video-area" id="videoArea">
+        ${renderVideo(lessons[0])}
+      </div>
+
+      <!-- LESSON INFO -->
+      <div class="lesson-info" id="lessonInfo">
+        ${renderLessonInfo(lessons[0], 0, lessons.length)}
+      </div>
+
+      <!-- RESOURCES -->
+      <div class="resources-section" id="resourcesSection">
+        ${renderResources(lessons[0])}
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="learn-sidebar">
+      <div class="sidebar-header">
+        <h3>📚 কোর্সের বিষয়সূচি</h3>
+        <div class="progress-bar-learn">
+          <div class="progress-bar-learn-fill" id="progressFill" style="width:0%"></div>
+        </div>
+        <p class="progress-text" id="progressText">০% সম্পন্ন</p>
+      </div>
+      <div class="lesson-list" id="lessonList">
+        ${lessons.map((l, i) => `
+          <div class="lesson-list-item ${i === 0 ? 'active' : ''}"
+               id="lesson-item-${i}"
+               onclick="switchLesson(${i})">
+            <div class="lesson-list-num">
+              ${i + 1}
+            </div>
+            <div class="lesson-list-info">
+              <h4>${l.title}</h4>
+              <p>${l.duration || 'ভিডিও ক্লাস'}</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+};
+
+const renderVideo = (lesson) => {
+  if (!lesson) return `
+    <div class="video-placeholder">
+      <i class="fas fa-video-slash" style="font-size:48px"></i>
+      <p>কোনো ভিডিও পাওয়া যায়নি</p>
+    </div>`;
+
+  const videoId = getYouTubeId(lesson.videoUrl);
+  if (!videoId) return `
+    <div class="video-placeholder">
+      <i class="fas fa-exclamation-circle" style="font-size:48px;color:#ef4444"></i>
+      <p>ভিডিও লোড হচ্ছে না</p>
+    </div>`;
+
+  return `
+    <div class="video-container">
+      <iframe
+        src="https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1"
+        allowfullscreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+      </iframe>
+    </div>`;
+};
+
+const renderLessonInfo = (lesson, index, total) => {
+  if (!lesson) return '';
+  return `
+    <h2>${lesson.title}</h2>
+    <p>${lesson.description || 'এই ক্লাসটি মনোযোগ দিয়ে দেখুন।'}</p>
+    <div class="lesson-nav">
+      <button class="btn btn-outline btn-sm" style="color:white;border-color:var(--gray-600)"
+        onclick="prevLesson()" ${index === 0 ? 'disabled' : ''}>
+        <i class="fas fa-chevron-left"></i> আগের ক্লাস
+      </button>
+      <button class="btn btn-primary btn-sm"
+        onclick="markComplete(${index})" id="completeBtn-${index}">
+        <i class="fas fa-check"></i> সম্পন্ন করুন
+      </button>
+      <button class="btn btn-outline btn-sm" style="color:white;border-color:var(--gray-600)"
+        onclick="nextLesson()" ${index === total - 1 ? 'disabled' : ''}>
+        পরের ক্লাস <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>`;
+};
+
+const renderResources = (lesson) => {
+  if (!lesson?.resources?.length) return `
+    <h3><i class="fas fa-download"></i> রিসোর্স ফাইল</h3>
+    <p style="color:var(--gray-400);font-size:14px">এই ক্লাসে কোনো রিসোর্স নেই</p>`;
+
+  return `
+    <h3><i class="fas fa-download"></i> রিসোর্স ফাইল</h3>
+    ${lesson.resources.map(r => `
+      <a href="${r.fileUrl}" download class="resource-item">
+        <div class="resource-icon">
+          <i class="fas fa-${r.fileType === 'pdf' ? 'file-pdf' : 'file-download'}"></i>
+        </div>
+        <div>
+          <p style="font-size:14px;font-weight:600">${r.name}</p>
+          <p style="font-size:12px;color:var(--gray-400)">${r.fileType?.toUpperCase() || 'FILE'}</p>
+        </div>
+        <i class="fas fa-download" style="margin-left:auto;color:var(--gray-400)"></i>
+      </a>
+    `).join('')}`;
+};
+
+const switchLesson = (index) => {
+  const lessons = courseData.lessons?.sort((a,b) => a.order - b.order) || [];
+  currentLesson = index;
+
+  document.getElementById('videoArea').innerHTML = renderVideo(lessons[index]);
+  document.getElementById('lessonInfo').innerHTML = renderLessonInfo(lessons[index], index, lessons.length);
+  document.getElementById('resourcesSection').innerHTML = renderResources(lessons[index]);
+
+  document.querySelectorAll('.lesson-list-item').forEach(item => item.classList.remove('active'));
+  document.getElementById(`lesson-item-${index}`)?.classList.add('active');
+};
+
+const nextLesson = () => {
+  const lessons = courseData.lessons || [];
+  if (currentLesson < lessons.length - 1) {
+    switchLesson(currentLesson + 1);
+  }
+};
+
+const prevLesson = () => {
+  if (currentLesson > 0) {
+    switchLesson(currentLesson - 1);
+  }
+};
+
+const markComplete = async (index) => {
+  completedLessons.add(index);
+  const lessons = courseData.lessons || [];
+  const progress = Math.round((completedLessons.size / lessons.length) * 100);
+
+  document.getElementById(`lesson-item-${index}`)?.classList.add('completed');
+  document.getElementById('progressFill').style.width = `${progress}%`;
+  document.getElementById('progressText').textContent = `${progress}% সম্পন্ন`;
+
+  const btn = document.getElementById(`completeBtn-${index}`);
+  if (btn) {
+    btn.innerHTML = '<i class="fas fa-check-circle"></i> সম্পন্ন হয়েছে';
+    btn.style.background = '#16a34a';
+    btn.disabled = true;
+  }
+
+  if (!isFree && getToken()) {
+    await apiCall(`/courses/${courseId}/progress`, 'PUT', { progress });
+  }
+
+  if (progress === 100) {
+    setTimeout(() => {
+      alert('🎉 অভিনন্দন! আপনি কোর্সটি সম্পন্ন করেছেন!');
+    }, 500);
+  }
+};
+
+loadCourse();
+</script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>কোর্সসমূহ - Skills BD Academy</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="/index.html" class="nav-brand">
+      <span class="brand-icon">🎓</span>
+      <span class="brand-text">Skills BD <span class="brand-highlight">Academy</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">হোম</a></li>
+      <li><a href="/courses.html" class="active">কোর্সসমূহ</a></li>
+      <li><a href="/free-classes.html">ফ্রি ক্লাস</a></li>
+      <li><a href="/live-courses.html">লাইভ কোর্স</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="/login.html" class="btn btn-outline" id="loginBtn">লগইন</a>
+      <a href="/register.html" class="btn btn-primary" id="registerBtn">রেজিস্ট্রেশন</a>
+      <div class="user-menu" id="userMenu" style="display:none">
+        <div class="user-avatar-box" id="userAvatarBox">
+          <div class="user-avatar-text" id="userAvatarText">অ</div>
+          <i class="fas fa-chevron-down" style="font-size:11px;color:var(--gray-500)"></i>
+        </div>
+        <div class="dropdown" id="dropdown">
+          <p id="userName"></p>
+          <a href="/dashboard.html"><i class="fas fa-tachometer-alt"></i> ড্যাশবোর্ড</a>
+          <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
+        </div>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-hero">
+  <div class="container">
+    <h1>আমাদের কোর্সসমূহ</h1>
+    <p>আপনার পছন্দের কোর্স বেছে নিন এবং শেখা শুরু করুন</p>
+  </div>
+</section>
+
+<!-- FILTER -->
+<section class="courses-section">
+  <div class="container">
+    <div class="courses-filter">
+      <button class="filter-btn-main active" data-type="all" onclick="filterCourses('all', this)">
+        <i class="fas fa-th"></i> সব কোর্স
+      </button>
+      <button class="filter-btn-main" data-type="recorded" onclick="filterCourses('recorded', this)">
+        <i class="fas fa-video"></i> রেকর্ড কোর্স
+      </button>
+      <button class="filter-btn-main" data-type="live" onclick="filterCourses('live', this)">
+        <i class="fas fa-broadcast-tower"></i> লাইভ কোর্স
+      </button>
+      <button class="filter-btn-main" data-type="free" onclick="filterCourses('free', this)">
+        <i class="fas fa-gift"></i> ফ্রি কোর্স
+      </button>
+    </div>
+
+    <div class="courses-grid" id="coursesGrid">
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i> লোড হচ্ছে...
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2024 Skills BD Academy. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+.page-hero {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  padding: 120px 0 60px;
+  text-align: center;
+}
+.page-hero h1 {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 12px;
+}
+.page-hero p {
+  font-size: 17px;
+  color: var(--gray-500);
+}
+.courses-section {
+  padding: 48px 0 80px;
+}
+.courses-filter {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.filter-btn-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 50px;
+  border: 2px solid var(--gray-200);
+  background: white;
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filter-btn-main:hover,
+.filter-btn-main.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+</style>
+
+<script src="/js/auth.js"></script>
+<script>
+let allCourses = [];
+
+const loadCourses = async () => {
+  const data = await apiCall('/courses');
+  if (data.success) {
+    allCourses = data.courses;
+    renderCourses(allCourses);
+  }
+};
+
+const filterCourses = (type, btn) => {
+  document.querySelectorAll('.filter-btn-main').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = type === 'all'
+    ? allCourses
+    : allCourses.filter(c => c.type === type);
+  renderCourses(filtered);
+};
+
+const renderCourses = (courses) => {
+  const grid = document.getElementById('coursesGrid');
+  if (courses.length === 0) {
+    grid.innerHTML = `
+      <div class="loading-spinner">
+        <i class="fas fa-search"></i>
+        <p style="margin-top:16px">কোনো কোর্স পাওয়া যায়নি</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = courses.map(c => `
+    <div class="course-card">
+      <div class="course-thumbnail">
+        ${c.thumbnail
+          ? `<img src="${c.thumbnail}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover">`
+          : '🎓'}
+      </div>
+      <div class="course-body">
+        <span class="course-type-badge badge-${c.type}">
+          ${c.type === 'recorded' ? '📹 রেকর্ড কোর্স'
+            : c.type === 'live' ? '🔴 লাইভ কোর্স'
+            : '✨ ফ্রি'}
+        </span>
+        <h3 class="course-title">${c.title}</h3>
+        <p style="font-size:13px;color:var(--gray-500);margin-top:6px;line-height:1.6">
+          ${c.description?.substring(0, 100)}...
+        </p>
+        <div style="display:flex;gap:16px;margin-top:12px;font-size:13px;color:var(--gray-400)">
+          <span><i class="fas fa-users"></i> ${c.totalEnrolled} জন</span>
+          <span><i class="fas fa-tag"></i> ${c.category || 'General'}</span>
+        </div>
+        <div class="course-meta">
+          <span class="course-price ${c.price === 0 ? 'free' : ''}">
+            ${c.price === 0 ? '✨ ফ্রি' : '৳' + c.price}
+          </span>
+        </div>
+        <a href="/course-details.html?id=${c._id}"
+           class="btn btn-primary btn-full" style="margin-top:16px">
+          বিস্তারিত দেখুন <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  `).join('');
+};
+
+// URL থেকে type filter
+const urlParams = new URLSearchParams(window.location.search);
+const typeParam = urlParams.get('type');
+
+loadCourses().then(() => {
+  if (typeParam) {
+    const btn = document.querySelector(`[data-type="${typeParam}"]`);
+    if (btn) filterCourses(typeParam, btn);
+  }
+});
+
+// Navbar scroll
+window.addEventListener('scroll', () => {
+  const navbar = document.getElementById('navbar');
+  if (window.scrollY > 20) navbar.classList.add('scrolled');
+  else navbar.classList.remove('scrolled');
+});
+
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+</script>
+</body>
+</html>

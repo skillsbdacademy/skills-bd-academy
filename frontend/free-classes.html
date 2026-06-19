@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ফ্রি ক্লাস - Skills BD Academy</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="/index.html" class="nav-brand">
+      <span class="brand-icon">🎓</span>
+      <span class="brand-text">Skills BD <span class="brand-highlight">Academy</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">হোম</a></li>
+      <li><a href="/courses.html">কোর্সসমূহ</a></li>
+      <li><a href="/free-classes.html" class="active">ফ্রি ক্লাস</a></li>
+      <li><a href="/live-courses.html">লাইভ কোর্স</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="/login.html" class="btn btn-outline" id="loginBtn">লগইন</a>
+      <a href="/register.html" class="btn btn-primary" id="registerBtn">রেজিস্ট্রেশন</a>
+      <div class="user-menu" id="userMenu" style="display:none">
+        <div class="user-avatar-box" id="userAvatarBox">
+          <div class="user-avatar-text" id="userAvatarText">অ</div>
+          <i class="fas fa-chevron-down" style="font-size:11px"></i>
+        </div>
+        <div class="dropdown" id="dropdown">
+          <p id="userName"></p>
+          <a href="/dashboard.html"><i class="fas fa-tachometer-alt"></i> ড্যাশবোর্ড</a>
+          <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
+        </div>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section style="background:linear-gradient(135deg,#fef3c7,#fde68a);padding:120px 0 60px;text-align:center">
+  <div class="container">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:white;padding:8px 20px;border-radius:50px;font-size:14px;font-weight:600;color:#d97706;margin-bottom:20px;box-shadow:var(--shadow-sm)">
+      ✨ সম্পূর্ণ বিনামূল্যে
+    </div>
+    <h1 style="font-size:42px;font-weight:700;color:var(--gray-900);margin-bottom:16px">
+      ফ্রি ক্লাসসমূহ
+    </h1>
+    <p style="font-size:17px;color:var(--gray-600);max-width:600px;margin:0 auto">
+      লগইন ছাড়াই দেখুন। সম্পূর্ণ বিনামূল্যে শিখুন।
+    </p>
+  </div>
+</section>
+
+<!-- FREE COURSES -->
+<section style="padding:60px 0;background:var(--gray-50)">
+  <div class="container">
+    <div class="courses-grid" id="freeCoursesGrid">
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i> লোড হচ্ছে...
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2024 Skills BD Academy. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/auth.js"></script>
+<script>
+const loadFreeCourses = async () => {
+  const data = await apiCall('/courses?type=free');
+  const grid = document.getElementById('freeCoursesGrid');
+
+  if (!data.success || data.courses.length === 0) {
+    grid.innerHTML = `
+      <div class="loading-spinner">
+        <i class="fas fa-gift" style="font-size:48px;color:#d97706"></i>
+        <p style="margin-top:16px">শীঘ্রই ফ্রি ক্লাস যোগ করা হবে</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = data.courses.map(c => `
+    <div class="course-card">
+      <div class="course-thumbnail" style="background:linear-gradient(135deg,#fef3c7,#f59e0b)">
+        ${c.thumbnail
+          ? `<img src="${c.thumbnail}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover">`
+          : '🎁'}
+      </div>
+      <div class="course-body">
+        <span class="course-type-badge" style="background:#fef3c7;color:#d97706">
+          ✨ ফ্রি কোর্স
+        </span>
+        <h3 class="course-title">${c.title}</h3>
+        <p style="font-size:13px;color:var(--gray-500);margin-top:6px;line-height:1.6">
+          ${c.description?.substring(0, 100)}...
+        </p>
+        <div style="display:flex;gap:16px;margin-top:12px;font-size:13px;color:var(--gray-400)">
+          <span><i class="fas fa-video"></i> ${c.lessons?.length || 0} টি ক্লাস</span>
+          <span><i class="fas fa-users"></i> ${c.totalEnrolled} জন</span>
+        </div>
+        <div class="course-meta">
+          <span style="font-size:20px;font-weight:700;color:#d97706">✨ সম্পূর্ণ ফ্রি</span>
+        </div>
+        <a href="/learn.html?id=${c._id}&free=true"
+           class="btn btn-full" style="margin-top:16px;background:#f59e0b;color:white;border:none;padding:12px;border-radius:8px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px">
+          <i class="fas fa-play"></i> এখনই দেখুন
+        </a>
+      </div>
+    </div>
+  `).join('');
+};
+
+loadFreeCourses();
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 20) document.getElementById('navbar').classList.add('scrolled');
+  else document.getElementById('navbar').classList.remove('scrolled');
+});
+
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+</script>
+</body>
+</html>

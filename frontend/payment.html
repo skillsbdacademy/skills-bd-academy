@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>পেমেন্ট - Skills BD Academy</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/auth.css">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body style="background:var(--gray-50);padding-top:0">
+
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="/index.html" class="nav-brand">
+      <span class="brand-icon">🎓</span>
+      <span class="brand-text">Skills BD <span class="brand-highlight">Academy</span></span>
+    </a>
+    <div class="nav-actions">
+      <a href="/courses.html" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i> কোর্সে ফিরুন
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div style="padding: 100px 20px 60px; max-width: 900px; margin: 0 auto;">
+
+  <div id="alertBox"></div>
+
+  <div id="paymentContent">
+    <div style="text-align:center;padding:60px">
+      <i class="fas fa-spinner fa-spin" style="font-size:36px;color:var(--primary)"></i>
+    </div>
+  </div>
+</div>
+
+<style>
+.payment-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 28px;
+  align-items: start;
+}
+.payment-box {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-200);
+}
+.payment-box h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.payment-method-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.method-tab {
+  padding: 16px;
+  border: 2px solid var(--gray-200);
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  background: white;
+  font-family: 'Hind Siliguri', sans-serif;
+}
+.method-tab:hover {
+  border-color: var(--primary-light);
+}
+.method-tab.active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+.method-tab .method-icon {
+  font-size: 28px;
+  margin-bottom: 6px;
+  display: block;
+}
+.method-tab .method-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-800);
+}
+.method-tab.active .method-name {
+  color: var(--primary);
+}
+.payment-number-box {
+  background: var(--gray-50);
+  border: 2px dashed var(--primary);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.payment-number-box p {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-bottom: 8px;
+}
+.payment-number {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 2px;
+}
+.payment-number-box small {
+  font-size: 12px;
+  color: var(--gray-400);
+  display: block;
+  margin-top: 4px;
+}
+.course-summary {
+  background: var(--gray-50);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.course-summary h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: 12px;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: var(--gray-600);
+  margin-bottom: 8px;
+}
+.summary-row.total {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gray-900);
+  padding-top: 12px;
+  border-top: 1px solid var(--gray-200);
+  margin-top: 8px;
+}
+.summary-row.total span:last-child {
+  color: var(--primary);
+}
+.steps-box {
+  background: white;
+  border-radius: var(--radius);
+  padding: 24px;
+  border: 1px solid var(--gray-200);
+  margin-top: 20px;
+}
+.step-item {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.step-text {
+  font-size: 14px;
+  color: var(--gray-600);
+  line-height: 1.6;
+  padding-top: 4px;
+}
+@media (max-width: 768px) {
+  .payment-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<script src="/js/auth.js"></script>
+<script>
+requireAuth();
+
+const courseId = new URLSearchParams(window.location.search).get('id');
+if (!courseId) window.location.href = '/courses.html';
+
+let selectedMethod = 'bkash';
+let courseData = null;
+
+const loadPaymentPage = async () => {
+  const data = await apiCall(`/courses/${courseId}`);
+  if (!data.success) {
+    window.location.href = '/courses.html';
+    return;
+  }
+
+  courseData = data.course;
+  document.title = `পেমেন্ট - ${courseData.title}`;
+
+  document.getElementById('paymentContent').innerHTML = `
+    <div class="payment-grid">
+      <!-- LEFT: FORM -->
+      <div class="payment-box">
+        <h2><i class="fas fa-credit-card" style="color:var(--primary)"></i> পেমেন্ট করুন</h2>
+
+        <!-- METHOD TABS -->
+        <div class="payment-method-tabs">
+          <div class="method-tab active" onclick="selectMethod('bkash', this)">
+            <span class="method-icon">📱</span>
+            <div class="method-name">bKash</div>
+          </div>
+          <div class="method-tab" onclick="selectMethod('nagad', this)">
+            <span class="method-icon">📱</span>
+            <div class="method-name">Nagad</div>
+          </div>
+        </div>
+
+        <!-- NUMBER TO SEND -->
+        <div class="payment-number-box">
+          <p>এই নম্বরে <strong>Send Money</strong> করুন</p>
+          <div class="payment-number" id="paymentNumber">01700-000000</div>
+          <small>পরিমাণ: ৳${courseData.price}</small>
+        </div>
+
+        <!-- STEPS -->
+        <div style="background:#f0fdf4;border-radius:10px;padding:16px;margin-bottom:24px">
+          <p style="font-size:13px;font-weight:600;color:var(--primary);margin-bottom:10px">
+            📋 পেমেন্ট করার নিয়ম:
+          </p>
+          <p style="font-size:13px;color:var(--gray-600);line-height:1.8">
+            ১. উপরের নম্বরে <strong>Send Money</strong> করুন<br>
+            ২. Transaction ID এবং নম্বর নিচে লিখুন<br>
+            ৩. Submit করুন এবং Admin এর অনুমোদনের অপেক্ষা করুন<br>
+            ৪. অনুমোদনের পর কোর্স চালু হবে
+          </p>
+        </div>
+
+        <!-- FORM -->
+        <form id="paymentForm">
+          <div class="form-group">
+            <label>Transaction ID *</label>
+            <div class="input-wrapper">
+              <i class="fas fa-hashtag"></i>
+              <input type="text" id="transactionId"
+                placeholder="যেমন: 8N7K3X2L9P" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>আপনার নম্বর (যে নম্বর থেকে পাঠিয়েছেন) *</label>
+            <div class="input-wrapper">
+              <i class="fas fa-phone"></i>
+              <input type="tel" id="senderNumber"
+                placeholder="01XXXXXXXXX" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn">
+            <i class="fas fa-paper-plane"></i> পেমেন্ট জমা দিন
+          </button>
+        </form>
+      </div>
+
+      <!-- RIGHT: SUMMARY -->
+      <div>
+        <div class="payment-box">
+          <h2><i class="fas fa-receipt" style="color:var(--primary)"></i> অর্ডার সারসংক্ষেপ</h2>
+          <div class="course-summary">
+            <h3>${courseData.title}</h3>
+            <div class="summary-row">
+              <span>কোর্সের ধরন</span>
+              <span>${courseData.type === 'recorded' ? 'রেকর্ড কোর্স' : 'লাইভ কোর্স'}</span>
+            </div>
+            <div class="summary-row">
+              <span>মোট ক্লাস</span>
+              <span>${courseData.lessons?.length || 0} টি</span>
+            </div>
+            <div class="summary-row total">
+              <span>মোট মূল্য</span>
+              <span>৳${courseData.price}</span>
+            </div>
+          </div>
+
+          <div class="steps-box">
+            <p style="font-size:14px;font-weight:700;color:var(--gray-700);margin-bottom:16px">
+              <i class="fas fa-shield-alt" style="color:var(--primary)"></i> নিরাপদ পেমেন্ট
+            </p>
+            <div class="step-item">
+              <div class="step-num">১</div>
+              <div class="step-text">পেমেন্ট জমা দেওয়ার পর Admin যাচাই করবেন</div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">২</div>
+              <div class="step-text">যাচাই সম্পন্ন হলে কোর্স চালু হবে</div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">৩</div>
+              <div class="step-text">Dashboard থেকে কোর্স দেখতে পাবেন</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  // Form submit
+  document.getElementById('paymentForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const transactionId = document.getElementById('transactionId').value.trim();
+    const senderNumber = document.getElementById('senderNumber').value.trim();
+
+    if (!transactionId || !senderNumber) {
+      showAlert('সব তথ্য পূরণ করুন', 'error');
+      return;
+    }
+
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> জমা হচ্ছে...';
+    btn.disabled = true;
+
+    const data = await apiCall('/payments/submit', 'POST', {
+      courseId,
+      method: selectedMethod,
+      transactionId,
+      senderNumber,
+      amount: courseData.price
+    });
+
+    if (data.success) {
+      document.getElementById('paymentContent').innerHTML = `
+        <div style="text-align:center;padding:60px 20px;background:white;border-radius:var(--radius-lg);box-shadow:var(--shadow)">
+          <div style="font-size:80px;margin-bottom:24px">✅</div>
+          <h2 style="font-size:28px;font-weight:700;color:var(--gray-900);margin-bottom:12px">
+            পেমেন্ট জমা হয়েছে!
+          </h2>
+          <p style="font-size:16px;color:var(--gray-500);margin-bottom:32px;line-height:1.8">
+            আপনার পেমেন্ট Admin এর কাছে পাঠানো হয়েছে।<br>
+            যাচাই সম্পন্ন হলে কোর্স চালু হবে।
+          </p>
+          <a href="/dashboard.html" class="btn btn-primary btn-lg">
+            <i class="fas fa-tachometer-alt"></i> ড্যাশবোর্ডে যান
+          </a>
+        </div>`;
+    } else {
+      showAlert(data.message || 'পেমেন্ট জমা ব্যর্থ হয়েছে', 'error');
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> পেমেন্ট জমা দিন';
+      btn.disabled = false;
+    }
+  });
+};
+
+const selectMethod = (method, tab) => {
+  selectedMethod = method;
+  document.querySelectorAll('.method-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById('paymentNumber').textContent =
+    method === 'bkash' ? '01700-000000' : '01800-000000';
+};
+
+loadPaymentPage();
+</script>
+</body>
+</html>

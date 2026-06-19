@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills BD Academy - দক্ষতা অর্জন করুন</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="nav-brand">
+      <span class="brand-icon">🎓</span>
+      <span class="brand-text">Skills BD <span class="brand-highlight">Academy</span></span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">হোম</a></li>
+      <li><a href="courses.html">কোর্সসমূহ</a></li>
+      <li><a href="free-classes.html">ফ্রি ক্লাস</a></li>
+      <li><a href="live-courses.html">লাইভ কোর্স</a></li>
+      <li><a href="#contact">যোগাযোগ</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="login.html" class="btn btn-outline" id="loginBtn">লগইন</a>
+      <a href="register.html" class="btn btn-primary" id="registerBtn">রেজিস্ট্রেশন</a>
+  <div class="user-menu" id="userMenu" style="display:none">
+  <div class="user-avatar-box" id="userAvatarBox">
+    <div class="user-avatar-text" id="userAvatarText">অ</div>
+    <i class="fas fa-chevron-down" style="font-size:11px;color:var(--gray-500)"></i>
+  </div>
+  <div class="dropdown" id="dropdown">
+    <p id="userName">লোড হচ্ছে...</p>
+    <a href="/dashboard.html"><i class="fas fa-tachometer-alt"></i> ড্যাশবোর্ড</a>
+    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
+  </div>
+</div>
+    </div>
+    <button class="hamburger" id="hamburger">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">🇧🇩 বাংলাদেশের সেরা অনলাইন একাডেমি</div>
+      <h1 class="hero-title">
+        দক্ষতা অর্জন করুন<br>
+        <span class="highlight">ক্যারিয়ার গড়ুন</span>
+      </h1>
+      <p class="hero-desc">
+        Skills BD Academy-তে শিখুন গ্রাফিক্স ডিজাইন, ওয়েব ডিজাইন, ডিজিটাল মার্কেটিং,
+        ফ্রিল্যান্সিং সহ আরো অনেক কিছু। বাংলায় শিখুন, সহজে বুঝুন।
+      </p>
+      <div class="hero-btns">
+        <a href="courses.html" class="btn btn-primary btn-lg">
+          <i class="fas fa-graduation-cap"></i> কোর্স দেখুন
+        </a>
+        <a href="free-classes.html" class="btn btn-outline btn-lg">
+          <i class="fas fa-play-circle"></i> ফ্রি ক্লাস দেখুন
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num" data-target="500">0</span>+
+          <span class="stat-label">শিক্ষার্থী</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="20">0</span>+
+          <span class="stat-label">কোর্স</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="50">0</span>+
+          <span class="stat-label">ফ্রি ভিডিও</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-card">
+        <div class="hero-card-inner">
+          <i class="fas fa-laptop-code hero-icon"></i>
+          <p>অনলাইনে শিখুন</p>
+          <span>যেকোনো সময়, যেকোনো জায়গা থেকে</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <div class="section-header">
+      <h2>কেন Skills BD Academy?</h2>
+      <p>আমরা দিচ্ছি সেরা মানের শিক্ষা, বাংলায়</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>লক্ষ্যমুখী কোর্স</h3>
+        <p>প্রতিটি কোর্স তৈরি করা হয়েছে বাস্তব জীবনে কাজে লাগার জন্য</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>যেকোনো ডিভাইসে</h3>
+        <p>মোবাইল, ট্যাবলেট বা কম্পিউটার থেকে যেকোনো সময় শিখুন</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3>বাংলায় শিক্ষা</h3>
+        <p>সম্পূর্ণ বাংলায় ব্যাখ্যা, সহজে বোঝা যায়</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📜</div>
+        <h3>সার্টিফিকেট</h3>
+        <p>কোর্স শেষে পাবেন প্রফেশনাল সার্টিফিকেট</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3>লাইফটাইম অ্যাক্সেস</h3>
+        <p>একবার কিনলে সারাজীবন দেখতে পারবেন</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎧</div>
+        <h3>সাপোর্ট</h3>
+        <p>যেকোনো সমস্যায় আমরা সাহায্য করতে প্রস্তুত</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSE TYPES -->
+<section class="course-types">
+  <div class="container">
+    <div class="section-header">
+      <h2>আমাদের কোর্স ক্যাটাগরি</h2>
+      <p>আপনার পছন্দ অনুযায়ী কোর্স বেছে নিন</p>
+    </div>
+    <div class="types-grid">
+      <div class="type-card recorded">
+        <div class="type-icon"><i class="fas fa-video"></i></div>
+        <h3>রেকর্ড কোর্স</h3>
+        <p>নিজের সময়মতো শিখুন। একবার কিনলে বারবার দেখুন।</p>
+        <ul>
+          <li><i class="fas fa-check"></i> সিরিয়াল বাই সিরিয়াল ক্লাস</li>
+          <li><i class="fas fa-check"></i> নোট ও রিসোর্স ফাইল</li>
+          <li><i class="fas fa-check"></i> PDF ডাউনলোড</li>
+          <li><i class="fas fa-check"></i> লাইফটাইম অ্যাক্সেস</li>
+        </ul>
+        <a href="courses.html?type=recorded" class="btn btn-primary">কোর্স দেখুন</a>
+      </div>
+      <div class="type-card live">
+        <div class="type-badge">🔴 LIVE</div>
+        <div class="type-icon"><i class="fas fa-broadcast-tower"></i></div>
+        <h3>লাইভ কোর্স</h3>
+        <p>সরাসরি শিক্ষকের সাথে শিখুন। প্রশ্ন করুন, উত্তর পান।</p>
+        <ul>
+          <li><i class="fas fa-check"></i> সরাসরি ক্লাস</li>
+          <li><i class="fas fa-check"></i> WhatsApp গ্রুপ</li>
+          <li><i class="fas fa-check"></i> লাইভ প্র্যাকটিস</li>
+          <li><i class="fas fa-check"></i> সার্টিফিকেট</li>
+        </ul>
+        <a href="live-courses.html" class="btn btn-primary">ভর্তি হন</a>
+      </div>
+      <div class="type-card free">
+        <div class="type-badge free-badge">✨ FREE</div>
+        <div class="type-icon"><i class="fas fa-gift"></i></div>
+        <h3>ফ্রি ক্লাস</h3>
+        <p>সম্পূর্ণ বিনামূল্যে শিখুন। কোনো রেজিস্ট্রেশন লাগবে না।</p>
+        <ul>
+          <li><i class="fas fa-check"></i> সম্পূর্ণ বিনামূল্যে</li>
+          <li><i class="fas fa-check"></i> লগইন ছাড়াই দেখুন</li>
+          <li><i class="fas fa-check"></i> যেকোনো সময়</li>
+          <li><i class="fas fa-check"></i> সব ডিভাইসে</li>
+        </ul>
+        <a href="free-classes.html" class="btn btn-primary">এখনই দেখুন</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POPULAR COURSES -->
+<section class="popular-courses">
+  <div class="container">
+    <div class="section-header">
+      <h2>জনপ্রিয় কোর্সসমূহ</h2>
+      <p>আমাদের সবচেয়ে বেশি চাহিদার কোর্সগুলো</p>
+    </div>
+    <div class="courses-grid" id="popularCourses">
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i> লোড হচ্ছে...
+      </div>
+    </div>
+    <div class="text-center mt-40">
+      <a href="courses.html" class="btn btn-outline btn-lg">সব কোর্স দেখুন</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <h2>শিক্ষার্থীরা কী বলছেন</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p>"Skills BD Academy থেকে গ্রাফিক্স ডিজাইন শিখে এখন আমি ফ্রিল্যান্সিং করছি। অনেক উপকার হয়েছে।"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">রা</div>
+          <div>
+            <strong>রাহেলা বেগম</strong>
+            <span>গ্রাফিক্স ডিজাইনার</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p>"বাংলায় এত সুন্দর করে শেখানো হয় যে সব কিছু সহজেই বুঝতে পারি। লাইভ ক্লাসও অনেক ভালো।"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">কা</div>
+          <div>
+            <strong>কামরুল হাসান</strong>
+            <span>ওয়েব ডেভেলপার</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p>"ফ্রি ক্লাসগুলো দেখে আগ্রহ হয়েছিল, পরে পেইড কোর্স কিনেছি। একদম সঠিক সিদ্ধান্ত ছিল।"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">সু</div>
+          <div>
+            <strong>সুমাইয়া আক্তার</strong>
+            <span>ডিজিটাল মার্কেটার</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <h2>যোগাযোগ করুন</h2>
+      <p>যেকোনো প্রশ্নে আমরা সাহায্য করতে প্রস্তুত</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <i class="fab fa-whatsapp"></i>
+          <div>
+            <strong>WhatsApp</strong>
+            <p>01700-000000</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fab fa-facebook"></i>
+          <div>
+            <strong>Facebook</strong>
+            <p>Skills BD Academy</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <strong>Email</strong>
+            <p>info@skillsbd.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <input type="text" placeholder="আপনার নাম" class="form-input">
+        <input type="text" placeholder="ফোন নম্বর" class="form-input">
+        <textarea placeholder="আপনার বার্তা" class="form-input" rows="4"></textarea>
+        <button class="btn btn-primary btn-full">বার্তা পাঠান</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="brand-icon">🎓</span>
+        <span class="brand-text">Skills BD Academy</span>
+        <p>বাংলাদেশের সেরা অনলাইন লার্নিং প্ল্যাটফর্ম। দক্ষতা অর্জন করুন, ক্যারিয়ার গড়ুন।</p>
+      </div>
+      <div class="footer-links">
+        <h4>কোর্সসমূহ</h4>
+        <ul>
+          <li><a href="courses.html?type=recorded">রেকর্ড কোর্স</a></li>
+          <li><a href="live-courses.html">লাইভ কোর্স</a></li>
+          <li><a href="free-classes.html">ফ্রি ক্লাস</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>একাউন্ট</h4>
+        <ul>
+          <li><a href="login.html">লগইন</a></li>
+          <li><a href="register.html">রেজিস্ট্রেশন</a></li>
+          <li><a href="dashboard.html">ড্যাশবোর্ড</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>সোশ্যাল মিডিয়া</h4>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+          <a href="#"><i class="fab fa-telegram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Skills BD Academy. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/auth.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

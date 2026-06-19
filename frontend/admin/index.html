@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Skills BD Academy</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar admin-sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span>⚙️</span>
+      <span>Admin <strong>Panel</strong></span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-page="dashboard">
+        <i class="fas fa-chart-bar"></i> ড্যাশবোর্ড
+      </a>
+      <a href="#" class="nav-item" data-page="courses">
+        <i class="fas fa-book"></i> কোর্স ম্যানেজমেন্ট
+      </a>
+      <a href="#" class="nav-item" data-page="payments">
+        <i class="fas fa-credit-card"></i> পেমেন্ট যাচাই
+        <span class="badge-count" id="pendingCount">0</span>
+      </a>
+      <a href="#" class="nav-item" data-page="students">
+        <i class="fas fa-users"></i> স্টুডেন্ট লিস্ট
+      </a>
+      <a href="/index.html" class="nav-item">
+        <i class="fas fa-home"></i> ওয়েবসাইট দেখুন
+      </a>
+      <a href="#" class="nav-item logout-btn" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> লগআউট
+      </a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="dashboard-main">
+    <div class="topbar">
+      <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <h2 class="topbar-title" id="topbarTitle">ড্যাশবোর্ড</h2>
+      <div class="topbar-right">
+        <div class="user-info">
+          <div class="user-avatar-sm admin-avatar">A</div>
+          <span>Admin</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD PAGE -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h1>ড্যাশবোর্ড 📊</h1>
+        <p>Skills BD Academy এর সামগ্রিক পরিসংখ্যান</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card green">
+          <div class="stat-icon"><i class="fas fa-users"></i></div>
+          <div class="stat-info">
+            <span class="stat-num" id="totalStudents">০</span>
+            <span class="stat-label">মোট শিক্ষার্থী</span>
+          </div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-icon"><i class="fas fa-book"></i></div>
+          <div class="stat-info">
+            <span class="stat-num" id="totalCourses">০</span>
+            <span class="stat-label">মোট কোর্স</span>
+          </div>
+        </div>
+        <div class="stat-card orange">
+          <div class="stat-icon"><i class="fas fa-clock"></i></div>
+          <div class="stat-info">
+            <span class="stat-num" id="pendingPayments">০</span>
+            <span class="stat-label">পেন্ডিং পেমেন্ট</span>
+          </div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-icon"><i class="fas fa-taka-sign"></i></div>
+          <div class="stat-info">
+            <span class="stat-num" id="totalRevenue">০</span>
+            <span class="stat-label">মোট আয় (৳)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PENDING PAYMENTS -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <h2><i class="fas fa-clock"></i> পেন্ডিং পেমেন্ট</h2>
+          <a href="#" class="btn btn-primary btn-sm" onclick="switchPage('payments')">
+            সব দেখুন
+          </a>
+        </div>
+        <div id="dashPendingPayments">
+          <div class="loading-state"><i class="fas fa-spinner fa-spin"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COURSES PAGE -->
+    <div class="page" id="page-courses">
+      <div class="page-header">
+        <h1>কোর্স ম্যানেজমেন্ট 📚</h1>
+        <p>কোর্স যোগ করুন, সম্পাদনা করুন বা মুছুন</p>
+      </div>
+
+      <!-- ADD COURSE FORM -->
+      <div class="section-card">
+        <h2><i class="fas fa-plus-circle"></i> নতুন কোর্স যোগ করুন</h2>
+        <div id="courseAlertBox"></div>
+        <form id="addCourseForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>কোর্সের নাম *</label>
+              <div class="input-wrapper">
+                <i class="fas fa-book"></i>
+                <input type="text" id="courseTitle" placeholder="কোর্সের নাম লিখুন" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>কোর্সের ধরন *</label>
+              <div class="input-wrapper">
+                <i class="fas fa-tag"></i>
+                <select id="courseType" required>
+                  <option value="">সিলেক্ট করুন</option>
+                  <option value="recorded">রেকর্ড কোর্স</option>
+                  <option value="live">লাইভ কোর্স</option>
+                  <option value="free">ফ্রি কোর্স</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>মূল্য (টাকা) *</label>
+              <div class="input-wrapper">
+                <i class="fas fa-taka-sign"></i>
+                <input type="number" id="coursePrice" placeholder="0" required min="0">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>ক্যাটাগরি</label>
+              <div class="input-wrapper">
+                <i class="fas fa-folder"></i>
+                <input type="text" id="courseCategory" placeholder="যেমন: গ্রাফিক্স ডিজাইন">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>কোর্স বিবরণ *</label>
+            <textarea id="courseDesc" placeholder="কোর্স সম্পর্কে বিস্তারিত লিখুন" rows="3" required></textarea>
+          </div>
+
+          <div class="form-group" id="whatsappGroup" style="display:none">
+            <label>WhatsApp গ্রুপ লিংক (লাইভ কোর্সের জন্য)</label>
+            <div class="input-wrapper">
+              <i class="fab fa-whatsapp"></i>
+              <input type="url" id="whatsappLink" placeholder="https://chat.whatsapp.com/...">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>থাম্বনেইল URL (ঐচ্ছিক)</label>
+            <div class="input-wrapper">
+              <i class="fas fa-image"></i>
+              <input type="url" id="courseThumbnail" placeholder="https://...">
+            </div>
+          </div>
+
+          <div class="form-check-inline">
+            <input type="checkbox" id="coursePublished">
+            <label for="coursePublished">এখনই প্রকাশ করুন</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-plus"></i> কোর্স যোগ করুন
+          </button>
+        </form>
+      </div>
+
+      <!-- COURSES LIST -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <h2><i class="fas fa-list"></i> সব কোর্স</h2>
+          <button class="btn btn-outline btn-sm" onclick="loadCourses()">
+            <i class="fas fa-sync"></i> রিফ্রেশ
+          </button>
+        </div>
+        <div id="coursesList">
+          <div class="loading-state"><i class="fas fa-spinner fa-spin"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENTS PAGE -->
+    <div class="page" id="page-payments">
+      <div class="page-header">
+        <h1>পেমেন্ট যাচাই 💳</h1>
+        <p>স্টুডেন্টদের পেমেন্ট অনুমোদন বা বাতিল করুন</p>
+      </div>
+
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all" onclick="filterPayments('all', this)">
+          সব
+        </button>
+        <button class="filter-btn" data-filter="pending" onclick="filterPayments('pending', this)">
+          ⏳ পেন্ডিং
+        </button>
+        <button class="filter-btn" data-filter="approved" onclick="filterPayments('approved', this)">
+          ✅ অনুমোদিত
+        </button>
+        <button class="filter-btn" data-filter="rejected" onclick="filterPayments('rejected', this)">
+          ❌ বাতিল
+        </button>
+      </div>
+
+      <div class="section-card">
+        <div id="paymentsList">
+          <div class="loading-state"><i class="fas fa-spinner fa-spin"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDENTS PAGE -->
+    <div class="page" id="page-students">
+      <div class="page-header">
+        <h1>স্টুডেন্ট লিস্ট 👥</h1>
+        <p>সকল নিবন্ধিত শিক্ষার্থীর তালিকা</p>
+      </div>
+      <div class="section-card">
+        <div id="studentsList">
+          <div class="loading-state"><i class="fas fa-spinner fa-spin"></i></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- LESSON MODAL -->
+<div class="modal" id="lessonModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalCourseTitle">ক্লাস যোগ করুন</h3>
+      <button onclick="closeModal()" class="modal-close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div id="lessonAlertBox"></div>
+      <form id="addLessonForm">
+        <input type="hidden" id="lessonCourseId">
+        <div class="form-group">
+          <label>ক্লাসের শিরোনাম *</label>
+          <div class="input-wrapper">
+            <i class="fas fa-heading"></i>
+            <input type="text" id="lessonTitle" placeholder="ক্লাস ১: পরিচিতি" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>YouTube ভিডিও URL *</label>
+          <div class="input-wrapper">
+            <i class="fab fa-youtube"></i>
+            <input type="url" id="lessonVideo" placeholder="https://www.youtube.com/watch?v=..." required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>সময়কাল</label>
+            <div class="input-wrapper">
+              <i class="fas fa-clock"></i>
+              <input type="text" id="lessonDuration" placeholder="যেমন: ৩০ মিনিট">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>ক্রম নম্বর</label>
+            <div class="input-wrapper">
+              <i class="fas fa-sort-numeric-up"></i>
+              <input type="number" id="lessonOrder" placeholder="1" min="1">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>বিবরণ</label>
+          <textarea id="lessonDesc" placeholder="এই ক্লাসে কী শেখানো হবে" rows="2"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">
+          <i class="fas fa-plus"></i> ক্লাস যোগ করুন
+        </button>
+      </form>
+
+      <!-- EXISTING LESSONS -->
+      <div id="existingLessons" style="margin-top:24px"></div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/auth.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>
