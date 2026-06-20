@@ -11,47 +11,28 @@ connectDB();
 
 const app = express();
 
-// ===== SECURITY HEADERS =====
-app.use(helmet({
-  contentSecurityPolicy: false,
-  crossOriginEmbedderPolicy: false
-}));
+// ===== SECURITY =====
+app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
 
-// ===== RATE LIMITING =====
-// সব route এর জন্য
 const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // ১৫ মিনিট
-  max: 100, // সর্বোচ্চ ১০০ request
-  message: { message: 'অনেক বেশি request করা হয়েছে, কিছুক্ষণ পর চেষ্টা করুন' }
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: { message: 'অনেক বেশি request, কিছুক্ষণ পর চেষ্টা করুন' }
 });
 
-// Login এর জন্য কড়া limit
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // ১৫ মিনিট
-  max: 10, // সর্বোচ্চ ১০ বার
-  message: { message: 'অনেকবার চেষ্টা করা হয়েছে, ১৫ মিনিট পর চেষ্টা করুন' }
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: { message: 'অনেকবার চেষ্টা হয়েছে, ১৫ মিনিট পর চেষ্টা করুন' }
 });
 
 app.use(generalLimiter);
 
 // ===== CORS =====
-const allowedOrigins = [
-  'http://localhost:5000',
-  'http://localhost:3000',
-  process.env.FRONTEND_URL
-].filter(Boolean);
-
 app.use(cors({
-  origin: function(origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('CORS blocked'));
-    }
-  },
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // ===== BODY PARSER =====
@@ -83,7 +64,42 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Server এ সমস্যা হয়েছে' });
 });
 
+// ===== AUTO ADMIN CREATE =====
+const autoCreateAdmin = async () => {
+  try {
+    const User = require('./models/User');
+    const bcrypt = require('bcryptjs');
+
+    const adminExists = await User.findOne({ email: 'admin@skillsbd.com' });
+    if (adminExists) {
+      console.log('✅ Admin আগেই আছে');
+      return;
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash('admin123456', salt);
+
+    await User.create({
+      name: 'Skills BD Admin',
+      email: 'admin@skillsbd.com',
+      phone: '01700000000',
+      password: hashedPassword,
+      role: 'admin',
+      isActive: true
+    });
+
+    console.log('✅ Admin স্বয়ংক্রিয়ভাবে তৈরি হয়েছে!');
+  } catch (err) {
+    console.log('Admin create error:', err.message);
+  }
+};
+
+// ===== START SERVER =====
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`🚀 Server running on port ${PORT}`);
+  // MongoDB connected হওয়ার পর Admin তৈরি
+  setTimeout(async () => {
+    await autoCreateAdmin();
+  }, 3000);
 });
