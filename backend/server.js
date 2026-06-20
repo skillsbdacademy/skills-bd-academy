@@ -67,10 +67,13 @@ app.use((err, req, res, next) => {
 // ===== AUTO ADMIN CREATE =====
 const autoCreateAdmin = async () => {
   try {
-    const User = require('./models/User');
+    const mongoose = require('mongoose');
     const bcrypt = require('bcryptjs');
 
-    const adminExists = await User.findOne({ email: 'admin@skillsbd.com' });
+    const db = mongoose.connection.db;
+    const usersCollection = db.collection('users');
+
+    const adminExists = await usersCollection.findOne({ email: 'admin@skillsbd.com' });
     if (adminExists) {
       console.log('✅ Admin আগেই আছে');
       return;
@@ -79,16 +82,20 @@ const autoCreateAdmin = async () => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash('admin123456', salt);
 
-    await User.create({
+    await usersCollection.insertOne({
       name: 'Skills BD Admin',
       email: 'admin@skillsbd.com',
       phone: '01700000000',
       password: hashedPassword,
       role: 'admin',
-      isActive: true
+      avatar: '',
+      enrolledCourses: [],
+      isActive: true,
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
 
-    console.log('✅ Admin স্বয়ংক্রিয়ভাবে তৈরি হয়েছে!');
+    console.log('✅ Admin তৈরি হয়েছে!');
   } catch (err) {
     console.log('Admin create error:', err.message);
   }
