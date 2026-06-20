@@ -228,7 +228,7 @@ const loadPaymentPage = async () => {
         <!-- NUMBER TO SEND -->
         <div class="payment-number-box">
           <p>এই নম্বরে <strong>Send Money</strong> করুন</p>
-          <div class="payment-number" id="paymentNumber">01700-000000</div>
+          <div class="payment-number" id="paymentNumber">01540-173500</div>
           <small>পরিমাণ: ৳${courseData.price}</small>
         </div>
 
@@ -361,7 +361,7 @@ const selectMethod = (method, tab) => {
   document.querySelectorAll('.method-tab').forEach(t => t.classList.remove('active'));
   tab.classList.add('active');
   document.getElementById('paymentNumber').textContent =
-    method === 'bkash' ? '01540-173500' : '01840-173500';
+    method === 'bkash' ? '01540-173500' : '01540-173500';
 };
 
 loadPaymentPage();
