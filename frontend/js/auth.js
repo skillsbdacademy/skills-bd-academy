@@ -1,4 +1,6 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = window.location.hostname === 'localhost'
+  ? 'http://localhost:5000/api'
+  : '/api';
 
 // ===== TOKEN ম্যানেজমেন্ট =====
 const getToken = () => localStorage.getItem('skillsbd_token');
