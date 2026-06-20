@@ -11,8 +11,14 @@ connectDB();
 
 const app = express();
 
+// ===== TRUST PROXY (Render এর জন্য) =====
+app.set('trust proxy', 1);
+
 // ===== SECURITY =====
-app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false
+}));
 
 const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -22,7 +28,7 @@ const generalLimiter = rateLimit({
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10,
+  max: 20,
   message: { message: 'অনেকবার চেষ্টা হয়েছে, ১৫ মিনিট পর চেষ্টা করুন' }
 });
 
@@ -70,18 +76,30 @@ const autoCreateAdmin = async () => {
     const mongoose = require('mongoose');
     const bcrypt = require('bcryptjs');
 
+    // MongoDB connected কিনা চেক
+    if (mongoose.connection.readyState !== 1) {
+      console.log('MongoDB এখনো connected হয়নি, অপেক্ষা করুন...');
+      return;
+    }
+
     const db = mongoose.connection.db;
     const usersCollection = db.collection('users');
 
-    const adminExists = await usersCollection.findOne({ email: 'admin@skillsbd.com' });
+    // আগে আছে কিনা চেক
+    const adminExists = await usersCollection.findOne({
+      email: 'admin@skillsbd.com'
+    });
+
     if (adminExists) {
       console.log('✅ Admin আগেই আছে');
       return;
     }
 
+    // পাসওয়ার্ড হ্যাশ
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash('admin123456', salt);
 
+    // Admin insert
     await usersCollection.insertOne({
       name: 'Skills BD Admin',
       email: 'admin@skillsbd.com',
@@ -96,17 +114,22 @@ const autoCreateAdmin = async () => {
     });
 
     console.log('✅ Admin তৈরি হয়েছে!');
+    console.log('📧 Email: admin@skillsbd.com');
+    console.log('🔑 Password: admin123456');
   } catch (err) {
-    console.log('Admin create error:', err.message);
+    console.log('❌ Admin create error:', err.message);
   }
 };
 
 // ===== START SERVER =====
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, async () => {
+app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  // MongoDB connected হওয়ার পর Admin তৈরি
-  setTimeout(async () => {
-    await autoCreateAdmin();
-  }, 3000);
+});
+
+// MongoDB connected হওয়ার পর Admin তৈরি
+const mongoose = require('mongoose');
+mongoose.connection.once('open', async () => {
+  console.log('✅ MongoDB Connected');
+  await autoCreateAdmin();
 });
