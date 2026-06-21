@@ -1406,3 +1406,65 @@ section { padding: 90px 0; }
   .section-header h2 { font-size: 30px; }
   .cta-content h2 { font-size: 32px; }
 }
+
+/* ===== SCROLLED NAVBAR FIX ===== */
+.navbar.scrolled .nav-brand {
+  color: var(--gray-900) !important;
+}
+
+.navbar.scrolled .nav-links a {
+  color: var(--gray-600) !important;
+}
+
+.navbar.scrolled .nav-links a:hover,
+.navbar.scrolled .nav-links a.active {
+  color: var(--primary) !important;
+}
+
+.navbar.scrolled .hamburger {
+  color: var(--gray-700) !important;
+}
+
+.navbar.scrolled .btn-outline {
+  color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.navbar.scrolled .user-avatar-box {
+  border-color: var(--primary-light) !important;
+  background: var(--primary-light) !important;
+}
+
+.navbar.scrolled .user-avatar-box i {
+  color: var(--gray-500) !important;
+}
+
+/* Static scrolled pages */
+.navbar-static {
+  background: white !important;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.08) !important;
+  border-bottom: 1px solid var(--gray-200) !important;
+}
+
+.navbar-static .nav-brand {
+  color: var(--gray-900) !important;
+}
+
+.navbar-static .nav-links a {
+  color: var(--gray-600) !important;
+}
+
+.navbar-static .nav-links a:hover,
+.navbar-static .nav-links a.active {
+  color: var(--primary) !important;
+}
+
+.navbar-static .hamburger {
+  color: var(--gray-700) !important;
+}
+
+.navbar-static .btn-glass {
+  background: transparent !important;
+  color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
