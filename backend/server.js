@@ -97,7 +97,7 @@ const autoCreateAdmin = async () => {
 
     // পাসওয়ার্ড হ্যাশ
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash('admin123456', salt);
+    const hashedPassword = await bcrypt.hash('598502.Ss@Skillsbd598502.Ss#@#@$$%#@$%*&^&*^&%&^LiveClass.SK', salt);
 
     // Admin insert
     await usersCollection.insertOne({
