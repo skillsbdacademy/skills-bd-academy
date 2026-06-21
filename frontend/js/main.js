@@ -48,10 +48,32 @@ const animateCounters = () => {
   });
 };
 
-// Counter - সরাসরি চালু করুন
-setTimeout(() => {
-  animateCounters();
-}, 1000);
+// Counter Animation
+const startCounters = () => {
+  const counters = document.querySelectorAll('.stat-num');
+  counters.forEach(counter => {
+    const target = parseInt(counter.getAttribute('data-target'));
+    if (!target) return;
+
+    let current = 0;
+    const increment = target / 60;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        counter.textContent = target;
+        clearInterval(timer);
+      } else {
+        counter.textContent = Math.floor(current);
+      }
+    }, 30);
+  });
+};
+
+// Page load হলেই counter চালু
+window.addEventListener('load', () => {
+  setTimeout(startCounters, 1500);
+});
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         animateCounters();
