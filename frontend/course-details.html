@@ -5,29 +5,385 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>কোর্স বিবরণ - Skills BD Academy</title>
   <link rel="stylesheet" href="/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+  /* ===== COURSE DETAILS ===== */
+  .course-hero {
+    background: linear-gradient(135deg, #0F0F1A 0%, #1A1A2E 50%, #16213E 100%);
+    padding: 100px 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .course-hero::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(124,58,237,0.15), transparent);
+    border-radius: 50%;
+    top: -200px;
+    right: -100px;
+  }
+
+  .course-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 60px;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  .course-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .badge-recorded-hero { background: rgba(124,58,237,0.2); color: #C4B5FD; border: 1px solid rgba(124,58,237,0.3); }
+  .badge-live-hero { background: rgba(239,68,68,0.2); color: #FCA5A5; border: 1px solid rgba(239,68,68,0.3); }
+  .badge-free-hero { background: rgba(245,158,11,0.2); color: #FDE68A; border: 1px solid rgba(245,158,11,0.3); }
+
+  .course-hero h1 {
+    font-size: 38px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 16px;
+    line-height: 1.3;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .course-hero p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 28px;
+    line-height: 1.8;
+  }
+
+  .course-meta-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .course-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .course-meta-item i { color: var(--accent); }
+
+  /* BUY CARD */
+  .buy-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+    position: sticky;
+    top: 90px;
+  }
+
+  .buy-card-thumb {
+    height: 200px;
+    background: linear-gradient(135deg, var(--primary-light), #DDD6FE);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 72px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .buy-card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .buy-card-thumb-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+  }
+
+  .buy-card-body { padding: 28px; }
+
+  .buy-price {
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 6px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .buy-price.free { color: #D97706; }
+
+  .buy-price-note {
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-bottom: 20px;
+  }
+
+  .buy-features {
+    margin-bottom: 24px;
+    background: var(--gray-50);
+    border-radius: 14px;
+    padding: 16px;
+  }
+
+  .buy-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--gray-600);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .buy-feature:last-child { margin-bottom: 0; }
+
+  .buy-feature i { color: var(--secondary); width: 16px; }
+
+  /* COURSE BODY */
+  .course-body-section {
+    padding: 60px 0 90px;
+    background: var(--gray-50);
+  }
+
+  .course-body-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* CURRICULUM */
+  .curriculum-box {
+    background: white;
+    border-radius: 20px;
+    padding: 28px;
+    border: 1px solid var(--gray-200);
+    margin-bottom: 24px;
+  }
+
+  .curriculum-box h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .curriculum-box h2 i { color: var(--primary); }
+
+  .curriculum-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    border: 1px solid var(--gray-100);
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    background: var(--gray-50);
+  }
+
+  .curriculum-item:hover {
+    border-color: var(--primary-light);
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    transform: translateX(4px);
+  }
+
+  .curriculum-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary-light), #DDD6FE);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .curriculum-item.unlocked .curriculum-num {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+  }
+
+  .curriculum-info h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-800);
+  }
+
+  .curriculum-info p {
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-top: 2px;
+  }
+
+  .curriculum-lock {
+    margin-left: auto;
+    color: var(--gray-300);
+    font-size: 14px;
+  }
+
+  .curriculum-item.unlocked .curriculum-lock {
+    color: var(--secondary);
+  }
+
+  /* SIDE INFO */
+  .side-info-box {
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    border: 1px solid var(--gray-200);
+    margin-bottom: 20px;
+  }
+
+  .side-info-box h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 16px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .side-info-box p {
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.8;
+  }
+
+  .whatsapp-box {
+    background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid #BBF7D0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .whatsapp-box i {
+    font-size: 24px;
+    color: #16a34a;
+  }
+
+  .whatsapp-box p {
+    font-size: 13px;
+    color: #15803D;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .instructor-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    background: var(--gray-50);
+    border-radius: 14px;
+  }
+
+  .instructor-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .instructor-info h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 4px;
+  }
+
+  .instructor-info p {
+    font-size: 13px;
+    color: var(--gray-400);
+    margin: 0;
+  }
+
+  /* LOADING */
+  .page-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: var(--gray-50);
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .page-loading i {
+    font-size: 40px;
+    color: var(--primary);
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .page-loading p { color: var(--gray-400); font-size: 15px; }
+
+  @media (max-width: 768px) {
+    .course-hero-grid,
+    .course-body-grid { grid-template-columns: 1fr; }
+    .buy-card { position: static; }
+    .course-hero h1 { font-size: 26px; }
+    .course-hero { padding: 80px 0 40px; }
+  }
+  </style>
 </head>
 <body>
 
-<nav class="navbar" id="navbar">
+<!-- NAVBAR -->
+<nav class="navbar navbar-static" id="navbar">
   <div class="container">
     <a href="/index.html" class="nav-brand">
       <span class="brand-icon">🎓</span>
-      <span class="brand-text">Skills BD <span class="brand-highlight">Academy</span></span>
+      <span style="color:var(--gray-900)">Skills BD <span style="color:var(--primary)">Academy</span></span>
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="/index.html">হোম</a></li>
-      <li><a href="/courses.html">কোর্সসমূহ</a></li>
-      <li><a href="/free-classes.html">ফ্রি ক্লাস</a></li>
+      <li><a href="/index.html" style="color:var(--gray-600)">হোম</a></li>
+      <li><a href="/courses.html" style="color:var(--gray-600)">কোর্সসমূহ</a></li>
+      <li><a href="/free-classes.html" style="color:var(--gray-600)">ফ্রি ক্লাস</a></li>
     </ul>
     <div class="nav-actions">
       <a href="/login.html" class="btn btn-outline" id="loginBtn">লগইন</a>
       <a href="/register.html" class="btn btn-primary" id="registerBtn">রেজিস্ট্রেশন</a>
       <div class="user-menu" id="userMenu" style="display:none">
-        <div class="user-avatar-box" id="userAvatarBox">
+        <div class="user-avatar-box" id="userAvatarBox"
+          style="border-color:var(--primary-light);background:var(--primary-light)">
           <div class="user-avatar-text" id="userAvatarText">অ</div>
-          <i class="fas fa-chevron-down" style="font-size:11px"></i>
+          <i class="fas fa-chevron-down" style="color:var(--gray-500);font-size:11px"></i>
         </div>
         <div class="dropdown" id="dropdown">
           <p id="userName"></p>
@@ -36,170 +392,23 @@
         </div>
       </div>
     </div>
-    <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+    <button class="hamburger" id="hamburger" style="color:var(--gray-700)">
+      <i class="fas fa-bars"></i>
+    </button>
   </div>
 </nav>
 
-<div id="courseContent" style="padding-top:70px">
-  <div style="text-align:center;padding:100px 20px">
-    <i class="fas fa-spinner fa-spin" style="font-size:40px;color:var(--primary)"></i>
-    <p style="margin-top:16px;color:var(--gray-400)">লোড হচ্ছে...</p>
+<!-- CONTENT -->
+<div id="courseContent">
+  <div class="page-loading">
+    <i class="fas fa-spinner"></i>
+    <p>লোড হচ্ছে...</p>
   </div>
 </div>
-
-<style>
-.course-hero {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  color: white;
-  padding: 60px 0;
-}
-.course-hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 48px;
-  align-items: start;
-}
-.course-hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(22,163,74,0.2);
-  color: #4ade80;
-  padding: 6px 16px;
-  border-radius: 50px;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  border: 1px solid rgba(22,163,74,0.3);
-}
-.course-hero h1 {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  line-height: 1.3;
-}
-.course-hero p {
-  font-size: 16px;
-  opacity: 0.8;
-  margin-bottom: 24px;
-  line-height: 1.8;
-}
-.course-meta-row {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  font-size: 14px;
-  opacity: 0.8;
-}
-.course-meta-row span {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.buy-card {
-  background: white;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-xl);
-  position: sticky;
-  top: 90px;
-}
-.buy-card-thumb {
-  height: 200px;
-  background: linear-gradient(135deg, var(--primary-light), var(--primary));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 64px;
-}
-.buy-card-body {
-  padding: 24px;
-}
-.buy-price {
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 20px;
-}
-.buy-features {
-  margin-bottom: 24px;
-}
-.buy-feature {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: var(--gray-600);
-  margin-bottom: 10px;
-}
-.buy-feature i {
-  color: var(--primary);
-  width: 16px;
-}
-.course-body-section {
-  padding: 60px 0;
-  background: var(--gray-50);
-}
-.course-body-grid {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 48px;
-}
-.curriculum-item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 20px;
-  background: white;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  border: 1px solid var(--gray-200);
-  transition: var(--transition);
-}
-.curriculum-item:hover {
-  border-color: var(--primary-light);
-  box-shadow: var(--shadow-sm);
-}
-.curriculum-num {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--primary-light);
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 14px;
-  flex-shrink: 0;
-}
-.curriculum-info h4 {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--gray-800);
-}
-.curriculum-info p {
-  font-size: 13px;
-  color: var(--gray-400);
-  margin-top: 2px;
-}
-.locked-overlay {
-  margin-left: auto;
-  color: var(--gray-300);
-  font-size: 16px;
-}
-@media (max-width: 768px) {
-  .course-hero-grid,
-  .course-body-grid { grid-template-columns: 1fr; }
-  .buy-card { position: static; }
-  .course-hero h1 { font-size: 26px; }
-}
-</style>
 
 <script src="/js/auth.js"></script>
 <script>
 const courseId = new URLSearchParams(window.location.search).get('id');
-
 if (!courseId) window.location.href = '/courses.html';
 
 const loadCourse = async () => {
@@ -213,8 +422,11 @@ const loadCourse = async () => {
   const user = getUser();
   document.title = `${c.title} - Skills BD Academy`;
 
-  const isFree = c.type === 'free';
-  const isEnrolled = user && c.enrolledCheck;
+  const typeClass = c.type === 'recorded' ? 'badge-recorded-hero'
+    : c.type === 'live' ? 'badge-live-hero' : 'badge-free-hero';
+
+  const typeText = c.type === 'recorded' ? '📹 রেকর্ড কোর্স'
+    : c.type === 'live' ? '🔴 লাইভ কোর্স' : '✨ ফ্রি কোর্স';
 
   document.getElementById('courseContent').innerHTML = `
     <!-- HERO -->
@@ -222,28 +434,43 @@ const loadCourse = async () => {
       <div class="container">
         <div class="course-hero-grid">
           <div>
-            <span class="course-hero-badge">
-              ${c.type === 'recorded' ? '📹 রেকর্ড কোর্স'
-                : c.type === 'live' ? '🔴 লাইভ কোর্স'
-                : '✨ ফ্রি কোর্স'}
-            </span>
+            <span class="course-hero-badge ${typeClass}">${typeText}</span>
             <h1>${c.title}</h1>
             <p>${c.description}</p>
             <div class="course-meta-row">
-              <span><i class="fas fa-users"></i> ${c.totalEnrolled} জন শিক্ষার্থী</span>
-              <span><i class="fas fa-video"></i> ${c.lessons?.length || 0} টি ক্লাস</span>
-              <span><i class="fas fa-tag"></i> ${c.category || 'General'}</span>
-              <span><i class="fas fa-chalkboard-teacher"></i> ${c.instructor}</span>
+              <div class="course-meta-item">
+                <i class="fas fa-users"></i>
+                <span>${c.totalEnrolled} জন শিক্ষার্থী</span>
+              </div>
+              <div class="course-meta-item">
+                <i class="fas fa-video"></i>
+                <span>${c.lessons?.length || 0} টি ক্লাস</span>
+              </div>
+              <div class="course-meta-item">
+                <i class="fas fa-tag"></i>
+                <span>${c.category || 'General'}</span>
+              </div>
+              <div class="course-meta-item">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>${c.instructor || 'Skills BD Academy'}</span>
+              </div>
             </div>
           </div>
 
           <!-- BUY CARD -->
           <div class="buy-card">
-            <div class="buy-card-thumb">🎓</div>
+            <div class="buy-card-thumb">
+              ${c.thumbnail
+                ? `<img src="${c.thumbnail}" alt="${c.title}"><div class="buy-card-thumb-overlay"></div>`
+                : (c.type === 'recorded' ? '🎬' : c.type === 'live' ? '📡' : '🎁')}
+            </div>
             <div class="buy-card-body">
-              <div class="buy-price">
+              <div class="buy-price ${c.price === 0 ? 'free' : ''}">
                 ${c.price === 0 ? '✨ সম্পূর্ণ ফ্রি' : '৳' + c.price}
               </div>
+              <p class="buy-price-note">
+                ${c.price === 0 ? 'কোনো পেমেন্ট লাগবে না' : 'একবার কিনলে সারাজীবন দেখুন'}
+              </p>
               <div class="buy-features">
                 <div class="buy-feature">
                   <i class="fas fa-infinity"></i> লাইফটাইম অ্যাক্সেস
@@ -275,50 +502,88 @@ const loadCourse = async () => {
         <div class="course-body-grid">
           <div>
             <!-- CURRICULUM -->
-            <div style="background:white;border-radius:var(--radius);padding:28px;margin-bottom:24px;border:1px solid var(--gray-200)">
-              <h2 style="font-size:22px;font-weight:700;color:var(--gray-900);margin-bottom:20px">
-                <i class="fas fa-list" style="color:var(--primary)"></i> কোর্সের বিষয়সূচি
-              </h2>
+            <div class="curriculum-box">
+              <h2><i class="fas fa-list-ul"></i> কোর্সের বিষয়সূচি</h2>
               ${c.lessons?.length > 0
                 ? c.lessons.sort((a,b) => a.order - b.order).map((l, i) => `
-                  <div class="curriculum-item">
-                    <div class="curriculum-num">${i+1}</div>
+                  <div class="curriculum-item ${i === 0 || c.type === 'free' ? 'unlocked' : ''}">
+                    <div class="curriculum-num">${i + 1}</div>
                     <div class="curriculum-info">
                       <h4>${l.title}</h4>
-                      <p>${l.duration || ''} ${l.description ? '• ' + l.description : ''}</p>
+                      <p>${l.duration || 'ভিডিও ক্লাস'} ${l.description ? '• ' + l.description.substring(0,50) : ''}</p>
                     </div>
-                    <div class="locked-overlay">
-                      ${i === 0 || isFree
-                        ? '<i class="fas fa-play-circle" style="color:var(--primary)"></i>'
+                    <div class="curriculum-lock">
+                      ${i === 0 || c.type === 'free'
+                        ? '<i class="fas fa-play-circle" style="color:var(--primary);font-size:18px"></i>'
                         : '<i class="fas fa-lock"></i>'}
                     </div>
                   </div>`).join('')
-                : '<p style="color:var(--gray-400);text-align:center;padding:20px">ক্লাস যোগ করা হচ্ছে...</p>'}
+                : `<div style="text-align:center;padding:40px;color:var(--gray-400)">
+                    <i class="fas fa-video" style="font-size:32px;margin-bottom:12px;display:block;opacity:0.4"></i>
+                    <p>ক্লাস যোগ করা হচ্ছে...</p>
+                  </div>`}
             </div>
           </div>
 
-          <!-- SIDE INFO -->
+          <!-- SIDE -->
           <div>
-            <div style="background:white;border-radius:var(--radius);padding:24px;border:1px solid var(--gray-200)">
-              <h3 style="font-size:18px;font-weight:700;margin-bottom:16px">এই কোর্সে যা শিখবেন</h3>
-              <p style="font-size:14px;color:var(--gray-600);line-height:1.8">${c.description}</p>
+            <div class="side-info-box">
+              <h3>📖 এই কোর্সে যা শিখবেন</h3>
+              <p>${c.description}</p>
 
               ${c.type === 'live' && c.whatsappLink ? `
-              <div style="margin-top:20px;padding:16px;background:#f0fdf4;border-radius:10px;border:1px solid #bbf7d0">
-                <p style="font-size:14px;font-weight:600;color:var(--primary);margin-bottom:8px">
-                  <i class="fab fa-whatsapp"></i> লাইভ ক্লাস গ্রুপ
-                </p>
-                <p style="font-size:13px;color:var(--gray-600)">
-                  পেমেন্ট অনুমোদনের পর WhatsApp গ্রুপ লিংক পাবেন।
-                </p>
+              <div class="whatsapp-box">
+                <i class="fab fa-whatsapp"></i>
+                <p>পেমেন্ট অনুমোদনের পর WhatsApp গ্রুপ লিংক পাবেন</p>
               </div>` : ''}
+            </div>
+
+            <div class="side-info-box">
+              <h3>👨‍🏫 ইন্সট্রাক্টর</h3>
+              <div class="instructor-box">
+                <div class="instructor-avatar">স</div>
+                <div class="instructor-info">
+                  <h4>${c.instructor || 'Skills BD Academy'}</h4>
+                  <p>প্রফেশনাল ইন্সট্রাক্টর</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="side-info-box">
+              <h3>📊 কোর্স তথ্য</h3>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;justify-content:space-between;font-size:14px;padding-bottom:10px;border-bottom:1px solid var(--gray-100)">
+                  <span style="color:var(--gray-500)">মোট ক্লাস</span>
+                  <strong>${c.lessons?.length || 0} টি</strong>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;padding-bottom:10px;border-bottom:1px solid var(--gray-100)">
+                  <span style="color:var(--gray-500)">ভর্তি শিক্ষার্থী</span>
+                  <strong>${c.totalEnrolled} জন</strong>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;padding-bottom:10px;border-bottom:1px solid var(--gray-100)">
+                  <span style="color:var(--gray-500)">ক্যাটাগরি</span>
+                  <strong>${c.category || 'General'}</strong>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:14px">
+                  <span style="color:var(--gray-500)">ধরন</span>
+                  <strong>${typeText}</strong>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>`;
+    </div>
 
-  // Buy Action button
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <p>© 2024 Skills BD Academy. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>`;
+
   renderBuyAction(c);
 };
 
@@ -328,7 +593,7 @@ const renderBuyAction = (c) => {
 
   if (c.type === 'free') {
     buyAction.innerHTML = `
-      <a href="/learn.html?id=${c._id}" class="btn btn-primary btn-full btn-lg">
+      <a href="/learn.html?id=${c._id}&free=true" class="btn btn-primary btn-full btn-lg">
         <i class="fas fa-play"></i> এখনই শুরু করুন
       </a>`;
     return;
@@ -340,25 +605,32 @@ const renderBuyAction = (c) => {
         <i class="fas fa-sign-in-alt"></i> লগইন করে কিনুন
       </a>
       <p style="text-align:center;margin-top:12px;font-size:13px;color:var(--gray-400)">
-        অ্যাকাউন্ট নেই? <a href="/register.html" style="color:var(--primary)">রেজিস্ট্রেশন করুন</a>
+        অ্যাকাউন্ট নেই?
+        <a href="/register.html" style="color:var(--primary);font-weight:600">রেজিস্ট্রেশন করুন</a>
       </p>`;
     return;
   }
 
   buyAction.innerHTML = `
     <a href="/payment.html?id=${c._id}" class="btn btn-primary btn-full btn-lg">
-      <i class="fas fa-shopping-cart"></i> এখনই কিনুন - ৳${c.price}
+      <i class="fas fa-shopping-cart"></i> এখনই কিনুন — ৳${c.price}
     </a>
     <p style="text-align:center;margin-top:12px;font-size:12px;color:var(--gray-400)">
-      <i class="fas fa-shield-alt"></i> bKash / Nagad এ পেমেন্ট করুন
+      <i class="fas fa-shield-alt" style="color:var(--secondary)"></i>
+      bKash / Nagad এ নিরাপদ পেমেন্ট
     </p>`;
 };
 
 loadCourse();
 
+// Navbar
 window.addEventListener('scroll', () => {
   if (window.scrollY > 20) document.getElementById('navbar').classList.add('scrolled');
   else document.getElementById('navbar').classList.remove('scrolled');
+});
+
+document.getElementById('hamburger')?.addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
 });
 </script>
 </body>
