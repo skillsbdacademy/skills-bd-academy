@@ -21,10 +21,30 @@ const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 
 if (hamburger) {
-  hamburger.addEventListener('click', () => {
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
     navLinks.classList.toggle('open');
+
+    // Icon পরিবর্তন
+    const icon = hamburger.querySelector('i');
+    if (navLinks.classList.contains('open')) {
+      icon.classList.replace('fa-bars', 'fa-times');
+    } else {
+      icon.classList.replace('fa-times', 'fa-bars');
+    }
   });
 }
+
+// বাইরে ক্লিক করলে বন্ধ হবে
+document.addEventListener('click', (e) => {
+  if (hamburger && navLinks) {
+    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+      navLinks.classList.remove('open');
+      const icon = hamburger.querySelector('i');
+      if (icon) icon.classList.replace('fa-times', 'fa-bars');
+    }
+  }
+});
 
 // ===== COUNTER ANIMATION =====
 const animateCounters = () => {

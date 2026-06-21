@@ -239,3 +239,42 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmartNavbar();
   }
 });
+// ===== GLOBAL HAMBURGER FIX =====
+const initHamburger = () => {
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  if (!hamburger || !navLinks) return;
+
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navLinks.classList.toggle('open');
+
+    const icon = hamburger.querySelector('i');
+    if (navLinks.classList.contains('open')) {
+      icon?.classList.replace('fa-bars', 'fa-times');
+    } else {
+      icon?.classList.replace('fa-times', 'fa-bars');
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+      navLinks.classList.remove('open');
+      const icon = hamburger.querySelector('i');
+      icon?.classList.replace('fa-times', 'fa-bars');
+    }
+  });
+
+  // Nav link ক্লিক করলে বন্ধ হবে
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      const icon = hamburger.querySelector('i');
+      icon?.classList.replace('fa-times', 'fa-bars');
+    });
+  });
+};
+
+// DOMContentLoaded এ init করুন
+document.addEventListener('DOMContentLoaded', initHamburger);
