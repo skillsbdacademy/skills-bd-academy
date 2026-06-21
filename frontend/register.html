@@ -4,49 +4,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>রেজিস্ট্রেশন - Skills BD Academy</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/auth.css">
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/auth.css">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-
 <div class="auth-page">
-  <!-- LEFT SIDE -->
+
+  <!-- LEFT -->
   <div class="auth-left">
+    <div class="auth-left-grid"></div>
     <div class="auth-left-content">
-      <a href="index.html" class="auth-brand">
-        <span>🎓</span>
-        <span>Skills BD <strong>Academy</strong></span>
+      <a href="/index.html" class="auth-brand">
+        <span class="auth-brand-icon">🎓</span>
+        <span>Skills BD <span>Academy</span></span>
       </a>
-      <h2>শেখা শুরু করুন আজই!</h2>
-      <p>বিনামূল্যে অ্যাকাউন্ট তৈরি করুন এবং হাজারো শিক্ষার্থীর সাথে যোগ দিন।</p>
+      <h2>শেখা শুরু করুন <span>আজই!</span></h2>
+      <p>বিনামূল্যে অ্যাকাউন্ট তৈরি করুন এবং হাজারো শিক্ষার্থীর সাথে আপনার স্বপ্নের ক্যারিয়ার গড়ুন।</p>
+
       <div class="auth-features">
         <div class="auth-feature">
-          <i class="fas fa-gift"></i>
+          <div class="auth-feature-icon">🎁</div>
           <span>ফ্রি কোর্স অ্যাক্সেস</span>
         </div>
         <div class="auth-feature">
-          <i class="fas fa-users"></i>
+          <div class="auth-feature-icon">👥</div>
           <span>কমিউনিটিতে যোগ দিন</span>
         </div>
         <div class="auth-feature">
-          <i class="fas fa-book-open"></i>
+          <div class="auth-feature-icon">📈</div>
           <span>লার্নিং ড্যাশবোর্ড</span>
         </div>
         <div class="auth-feature">
-          <i class="fas fa-headset"></i>
-          <span>সাপোর্ট পান</span>
+          <div class="auth-feature-icon">🎧</div>
+          <span>২৪/৭ সাপোর্ট</span>
+        </div>
+      </div>
+
+      <div class="auth-stats">
+        <div>
+          <span class="auth-stat-num">৫০০+</span>
+          <span class="auth-stat-label">শিক্ষার্থী</span>
+        </div>
+        <div>
+          <span class="auth-stat-num">২০+</span>
+          <span class="auth-stat-label">কোর্স</span>
+        </div>
+        <div>
+          <span class="auth-stat-num">৯৮%</span>
+          <span class="auth-stat-label">সন্তুষ্টি</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- RIGHT SIDE -->
+  <!-- RIGHT -->
   <div class="auth-right">
     <div class="auth-form-box">
+      <div class="auth-right-logo">
+        <span>🎓</span>
+        <span>Skills BD <span>Academy</span></span>
+      </div>
+
       <h1>অ্যাকাউন্ট তৈরি করুন</h1>
       <p class="auth-subtitle">নিচের তথ্যগুলো পূরণ করুন</p>
 
@@ -56,54 +76,33 @@
         <div class="form-group">
           <label>পূর্ণ নাম</label>
           <div class="input-wrapper">
-            <i class="fas fa-user"></i>
-            <input
-              type="text"
-              id="name"
-              placeholder="আপনার পূর্ণ নাম লিখুন"
-              required
-            >
+            <i class="fas fa-user input-icon"></i>
+            <input type="text" id="name" placeholder="আপনার পূর্ণ নাম" required>
           </div>
         </div>
 
         <div class="form-group">
           <label>ইমেইল ঠিকানা</label>
           <div class="input-wrapper">
-            <i class="fas fa-envelope"></i>
-            <input
-              type="email"
-              id="email"
-              placeholder="আপনার ইমেইল লিখুন"
-              required
-            >
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="email" placeholder="example@gmail.com" required>
           </div>
         </div>
 
         <div class="form-group">
           <label>মোবাইল নম্বর</label>
           <div class="input-wrapper">
-            <i class="fas fa-phone"></i>
-            <input
-              type="tel"
-              id="phone"
-              placeholder="01XXXXXXXXX"
-              required
-            >
+            <i class="fas fa-phone input-icon"></i>
+            <input type="tel" id="phone" placeholder="01XXXXXXXXX" required>
           </div>
         </div>
 
         <div class="form-group">
           <label>পাসওয়ার্ড</label>
           <div class="input-wrapper">
-            <i class="fas fa-lock"></i>
-            <input
-              type="password"
-              id="password"
-              placeholder="কমপক্ষে ৬ অক্ষর"
-              required
-              minlength="6"
-            >
-            <button type="button" class="toggle-password" onclick="togglePassword('password', 'eye1')">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="password" placeholder="কমপক্ষে ৬ অক্ষর" required minlength="6">
+            <button type="button" class="toggle-password" onclick="togglePass('password','eye1')">
               <i class="fas fa-eye" id="eye1"></i>
             </button>
           </div>
@@ -112,14 +111,9 @@
         <div class="form-group">
           <label>পাসওয়ার্ড নিশ্চিত করুন</label>
           <div class="input-wrapper">
-            <i class="fas fa-lock"></i>
-            <input
-              type="password"
-              id="confirmPassword"
-              placeholder="পাসওয়ার্ড আবার লিখুন"
-              required
-            >
-            <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword', 'eye2')">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="confirmPassword" placeholder="পাসওয়ার্ড আবার লিখুন" required>
+            <button type="button" class="toggle-password" onclick="togglePass('confirmPassword','eye2')">
               <i class="fas fa-eye" id="eye2"></i>
             </button>
           </div>
@@ -132,33 +126,28 @@
           </label>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn">
+        <button type="submit" class="btn btn-primary" id="submitBtn">
           <i class="fas fa-user-plus"></i> রেজিস্ট্রেশন করুন
         </button>
       </form>
 
       <p class="auth-switch">
         আগে থেকে অ্যাকাউন্ট আছে?
-        <a href="login.html">এখানে লগইন করুন</a>
+        <a href="/login.html">এখানে লগইন করুন</a>
       </p>
 
-      <a href="index.html" class="back-home">
+      <a href="/index.html" class="back-home">
         <i class="fas fa-arrow-left"></i> হোমপেজে ফিরে যান
       </a>
     </div>
   </div>
 </div>
 
-<script src="js/auth.js"></script>
 <script src="/js/auth.js"></script>
 <script>
-  // আগে লগইন থাকলে redirect
-  if (getUser()) {
-    window.location.href = 'dashboard.html';
-  }
+  if (getUser()) window.location.href = '/dashboard.html';
 
-  // Password toggle
-  const togglePassword = (fieldId, iconId) => {
+  const togglePass = (fieldId, iconId) => {
     const field = document.getElementById(fieldId);
     const icon = document.getElementById(iconId);
     if (field.type === 'password') {
@@ -170,24 +159,20 @@
     }
   };
 
-  // Register Form Submit
   document.getElementById('registerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const btn = document.getElementById('submitBtn');
 
-    // পাসওয়ার্ড মিলছে কিনা চেক
     if (password !== confirmPassword) {
       showAlert('পাসওয়ার্ড দুটো মিলছে না', 'error');
       return;
     }
 
-    // ফোন নম্বর চেক
     if (phone.length < 11) {
       showAlert('সঠিক মোবাইল নম্বর দিন', 'error');
       return;
@@ -196,24 +181,16 @@
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> রেজিস্ট্রেশন হচ্ছে...';
     btn.disabled = true;
 
-    try {
-      const data = await apiCall('/auth/register', 'POST', {
-        name, email, phone, password
-      });
+    const data = await apiCall('/auth/register', 'POST', { name, email, phone, password });
 
-      if (data.success) {
-        saveAuth(data.token, data.user);
-        showAlert('রেজিস্ট্রেশন সফল! ড্যাশবোর্ডে যাচ্ছেন...', 'success');
-        setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 1500);
-      } else {
-        showAlert(data.message || 'রেজিস্ট্রেশন ব্যর্থ হয়েছে', 'error');
-        btn.innerHTML = '<i class="fas fa-user-plus"></i> রেজিস্ট্রেশন করুন';
-        btn.disabled = false;
-      }
-    } catch (err) {
-      showAlert('সার্ভারে সমস্যা হচ্ছে', 'error');
+    if (data.success) {
+      saveAuth(data.token, data.user);
+      showAlert('✅ রেজিস্ট্রেশন সফল!', 'success');
+      setTimeout(() => {
+        window.location.href = '/dashboard.html';
+      }, 1000);
+    } else {
+      showAlert(data.message || 'রেজিস্ট্রেশন ব্যর্থ হয়েছে', 'error');
       btn.innerHTML = '<i class="fas fa-user-plus"></i> রেজিস্ট্রেশন করুন';
       btn.disabled = false;
     }
