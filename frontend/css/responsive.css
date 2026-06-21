@@ -153,16 +153,17 @@
 /* ===== FEATURES MOBILE ===== */
 @media (max-width: 768px) {
   .features-grid {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
   }
 
   .feature-card {
-    padding: 24px 20px !important;
+    padding: 20px 16px !important;
     display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    text-align: left;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
   }
 
   .feature-icon-box {
@@ -171,6 +172,27 @@
     font-size: 22px !important;
     flex-shrink: 0;
     margin-bottom: 0 !important;
+  }
+
+  .feature-card h3 {
+    font-size: 14px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .feature-card p {
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .features-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .feature-card {
+    flex-direction: row !important;
+    text-align: left !important;
   }
 }
 

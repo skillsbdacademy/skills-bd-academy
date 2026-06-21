@@ -167,21 +167,38 @@ window.addEventListener('scroll', () => {
   else document.getElementById('navbar').classList.remove('scrolled');
 });
 
+// Hamburger
 const hamburgerBtn = document.getElementById('hamburger');
 const navLinksEl = document.getElementById('navLinks');
 
-if (hamburgerBtn) {
+if (hamburgerBtn && navLinksEl) {
   hamburgerBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     navLinksEl.classList.toggle('open');
+    const icon = hamburgerBtn.querySelector('i');
+    if (navLinksEl.classList.contains('open')) {
+      icon?.classList.replace('fa-bars', 'fa-times');
+    } else {
+      icon?.classList.replace('fa-times', 'fa-bars');
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!hamburgerBtn.contains(e.target) && !navLinksEl.contains(e.target)) {
+      navLinksEl.classList.remove('open');
+      const icon = hamburgerBtn.querySelector('i');
+      icon?.classList.replace('fa-times', 'fa-bars');
+    }
+  });
+
+  navLinksEl.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinksEl.classList.remove('open');
+      const icon = hamburgerBtn.querySelector('i');
+      icon?.classList.replace('fa-times', 'fa-bars');
+    });
   });
 }
-
-document.addEventListener('click', (e) => {
-  if (!hamburgerBtn?.contains(e.target) && !navLinksEl?.contains(e.target)) {
-    navLinksEl?.classList.remove('open');
-  }
-});
 </script>
 <script src="/js/theme.js"></script>
 <script src="/js/animations.js"></script>
