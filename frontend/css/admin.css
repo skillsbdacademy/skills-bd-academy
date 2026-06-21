@@ -1,27 +1,29 @@
 /* ===== ADMIN SIDEBAR ===== */
 .admin-sidebar {
-  background: #0f172a;
+  background: linear-gradient(180deg, #0F0F1A 0%, #1A1A2E 50%, #16213E 100%) !important;
 }
 
 .admin-avatar {
-  background: #7c3aed !important;
+  background: linear-gradient(135deg, #7C3AED, #F59E0B) !important;
 }
 
 .topbar-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--gray-800);
+  font-family: 'Poppins', sans-serif;
 }
 
 /* ===== BADGE COUNT ===== */
 .badge-count {
-  background: #ef4444;
+  background: linear-gradient(135deg, #EF4444, #DC2626);
   color: white;
   font-size: 11px;
   font-weight: 700;
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: 50px;
   margin-left: auto;
+  box-shadow: 0 2px 8px rgba(239,68,68,0.4);
 }
 
 /* ===== FORM ROW ===== */
@@ -35,31 +37,32 @@
   width: 100%;
   padding: 13px 16px;
   border: 2px solid var(--gray-200);
-  border-radius: 10px;
+  border-radius: 12px;
   font-family: 'Hind Siliguri', sans-serif;
   font-size: 15px;
   color: var(--gray-800);
-  transition: var(--transition);
+  transition: all 0.3s ease;
   outline: none;
   background: var(--gray-50);
   resize: vertical;
+  min-height: 100px;
 }
 
 .form-group textarea:focus {
   border-color: var(--primary);
   background: white;
-  box-shadow: 0 0 0 3px rgba(22,163,74,0.1);
+  box-shadow: 0 0 0 4px rgba(124,58,237,0.1);
 }
 
 .form-group select {
   width: 100%;
   padding: 13px 44px;
   border: 2px solid var(--gray-200);
-  border-radius: 10px;
+  border-radius: 12px;
   font-family: 'Hind Siliguri', sans-serif;
   font-size: 15px;
   color: var(--gray-800);
-  transition: var(--transition);
+  transition: all 0.3s ease;
   outline: none;
   background: var(--gray-50);
   cursor: pointer;
@@ -69,6 +72,7 @@
 .form-group select:focus {
   border-color: var(--primary);
   background: white;
+  box-shadow: 0 0 0 4px rgba(124,58,237,0.1);
 }
 
 .form-check-inline {
@@ -76,6 +80,10 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
+  padding: 14px 16px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border: 1px solid var(--gray-200);
 }
 
 .form-check-inline input {
@@ -87,12 +95,12 @@
 
 .form-check-inline label {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--gray-700);
   cursor: pointer;
 }
 
-/* ===== COURSES TABLE ===== */
+/* ===== ADMIN TABLE ===== */
 .admin-table {
   width: 100%;
   border-collapse: collapse;
@@ -103,15 +111,18 @@
   background: var(--gray-50);
   padding: 12px 16px;
   text-align: left;
-  font-weight: 600;
-  color: var(--gray-600);
-  border-bottom: 2px solid var(--gray-200);
+  font-weight: 700;
+  color: var(--gray-500);
+  border-bottom: 2px solid var(--gray-100);
   white-space: nowrap;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .admin-table td {
   padding: 14px 16px;
-  border-bottom: 1px solid var(--gray-100);
+  border-bottom: 1px solid var(--gray-50);
   color: var(--gray-700);
   vertical-align: middle;
 }
@@ -130,7 +141,7 @@
 .filter-bar {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   flex-wrap: wrap;
 }
 
@@ -144,28 +155,34 @@
   font-weight: 600;
   color: var(--gray-600);
   cursor: pointer;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
-.filter-btn:hover,
+.filter-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
 .filter-btn.active {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border-color: var(--primary);
   color: white;
+  box-shadow: 0 4px 12px rgba(124,58,237,0.3);
 }
 
 /* ===== PAYMENT CARD ===== */
 .payment-card {
   background: white;
   border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 20px;
+  border-radius: 20px;
+  padding: 24px;
   margin-bottom: 16px;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .payment-card:hover {
-  box-shadow: var(--shadow);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  border-color: var(--primary-light);
 }
 
 .payment-card-header {
@@ -186,26 +203,27 @@
 
 .payment-student-info p {
   font-size: 13px;
-  color: var(--gray-500);
+  color: var(--gray-400);
 }
 
 .payment-details {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   margin-bottom: 16px;
   background: var(--gray-50);
-  padding: 14px;
-  border-radius: 10px;
+  padding: 16px;
+  border-radius: 14px;
 }
 
 .payment-detail-item label {
   font-size: 11px;
   color: var(--gray-400);
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
   display: block;
   margin-bottom: 4px;
+  letter-spacing: 0.5px;
 }
 
 .payment-detail-item span {
@@ -219,6 +237,8 @@
   gap: 10px;
   align-items: center;
   flex-wrap: wrap;
+  padding-top: 16px;
+  border-top: 1px solid var(--gray-100);
 }
 
 .payment-actions input {
@@ -226,22 +246,24 @@
   min-width: 200px;
   padding: 10px 14px;
   border: 2px solid var(--gray-200);
-  border-radius: 8px;
+  border-radius: 10px;
   font-family: 'Hind Siliguri', sans-serif;
   font-size: 14px;
   outline: none;
+  transition: all 0.3s ease;
 }
 
 .payment-actions input:focus {
   border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
 }
 
 /* ===== STUDENT TABLE ===== */
 .student-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--primary);
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
   color: white;
   display: flex;
   align-items: center;
@@ -262,7 +284,8 @@
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
   z-index: 1000;
   align-items: center;
   justify-content: center;
@@ -271,72 +294,88 @@
 
 .modal.open {
   display: flex;
-  animation: fadeIn 0.2s ease;
+  animation: fadeInModal 0.3s ease;
 }
 
-@keyframes fadeIn {
+@keyframes fadeInModal {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
 .modal-box {
   background: white;
-  border-radius: var(--radius-lg);
+  border-radius: 24px;
   width: 100%;
-  max-width: 600px;
-  max-height: 85vh;
+  max-width: 620px;
+  max-height: 88vh;
   overflow-y: auto;
-  box-shadow: var(--shadow-xl);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+  animation: slideUpModal 0.3s ease;
+}
+
+@keyframes slideUpModal {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--gray-200);
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--gray-100);
   position: sticky;
   top: 0;
   background: white;
   z-index: 1;
+  border-radius: 24px 24px 0 0;
 }
 
 .modal-header h3 {
   font-size: 18px;
   font-weight: 700;
   color: var(--gray-800);
+  font-family: 'Poppins', sans-serif;
 }
 
 .modal-close {
-  background: none;
+  width: 36px;
+  height: 36px;
+  background: var(--gray-100);
   border: none;
-  font-size: 18px;
+  border-radius: 10px;
+  font-size: 16px;
   cursor: pointer;
-  color: var(--gray-400);
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: var(--transition);
+  color: var(--gray-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
 
 .modal-close:hover {
-  background: var(--gray-100);
-  color: var(--gray-700);
+  background: #FEE2E2;
+  color: #DC2626;
 }
 
-.modal-body {
-  padding: 24px;
-}
+.modal-body { padding: 28px; }
 
 /* ===== LESSON LIST ===== */
 .lesson-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 14px 16px;
   background: var(--gray-50);
-  border-radius: 10px;
+  border-radius: 12px;
   margin-bottom: 10px;
   border: 1px solid var(--gray-200);
+  transition: all 0.3s ease;
+}
+
+.lesson-item:hover {
+  border-color: var(--primary-light);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .lesson-item-info {
@@ -346,11 +385,11 @@
 }
 
 .lesson-num {
-  width: 28px;
-  height: 28px;
-  background: var(--primary);
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: white;
-  border-radius: 50%;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -368,20 +407,100 @@
 .lesson-item-info p {
   font-size: 12px;
   color: var(--gray-400);
+  margin-top: 2px;
 }
 
 /* ===== PUBLISHED BADGE ===== */
 .published-badge {
-  padding: 3px 10px;
+  padding: 4px 12px;
   border-radius: 50px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.pub-yes { background: #dcfce7; color: #16a34a; }
-.pub-no { background: #fee2e2; color: #dc2626; }
+.pub-yes { background: #DCFCE7; color: #16a34a; }
+.pub-no { background: #FEE2E2; color: #DC2626; }
 
+/* ===== ADMIN STATS ===== */
+.admin-stat-card {
+  background: white;
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border: 1px solid var(--gray-100);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-stat-card::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  opacity: 0.08;
+}
+
+.admin-stat-card.green::after { background: #16a34a; }
+.admin-stat-card.blue::after { background: #2563eb; }
+.admin-stat-card.orange::after { background: #ea580c; }
+.admin-stat-card.purple::after { background: var(--primary); }
+
+.admin-stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+}
+
+/* ===== QUICK ACTIONS ===== */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.quick-action-btn {
+  background: white;
+  border: 2px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
+.quick-action-btn:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  transform: translateY(-3px);
+}
+
+.quick-action-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.quick-action-btn span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .form-row { grid-template-columns: 1fr; }
   .payment-details { grid-template-columns: 1fr 1fr; }
+  .quick-actions { grid-template-columns: repeat(2, 1fr); }
+  .modal-box { border-radius: 20px; }
 }

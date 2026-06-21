@@ -7,10 +7,12 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/dashboard.css">
   <link rel="stylesheet" href="/css/admin.css">
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <div class="dashboard-layout">
 
@@ -20,10 +22,22 @@
       <span>⚙️</span>
       <span>Admin <strong>Panel</strong></span>
     </div>
+
+    <div class="sidebar-user">
+      <div class="sidebar-user-avatar admin-avatar">A</div>
+      <div class="sidebar-user-info">
+        <h4>Skills BD Admin</h4>
+        <span>Super Admin</span>
+      </div>
+    </div>
+
     <nav class="sidebar-nav">
+      <div class="nav-section-title">ড্যাশবোর্ড</div>
       <a href="#" class="nav-item active" data-page="dashboard">
-        <i class="fas fa-chart-bar"></i> ড্যাশবোর্ড
+        <i class="fas fa-chart-bar"></i> ওভারভিউ
       </a>
+
+      <div class="nav-section-title">ম্যানেজমেন্ট</div>
       <a href="#" class="nav-item" data-page="courses">
         <i class="fas fa-book"></i> কোর্স ম্যানেজমেন্ট
       </a>
@@ -34,8 +48,10 @@
       <a href="#" class="nav-item" data-page="students">
         <i class="fas fa-users"></i> স্টুডেন্ট লিস্ট
       </a>
+
+      <div class="nav-section-title">অন্যান্য</div>
       <a href="/index.html" class="nav-item">
-        <i class="fas fa-home"></i> ওয়েবসাইট দেখুন
+        <i class="fas fa-globe"></i> ওয়েবসাইট দেখুন
       </a>
       <a href="#" class="nav-item logout-btn" onclick="logout()">
         <i class="fas fa-sign-out-alt"></i> লগআউট
@@ -51,6 +67,10 @@
       </button>
       <h2 class="topbar-title" id="topbarTitle">ড্যাশবোর্ড</h2>
       <div class="topbar-right">
+        <button class="topbar-notification">
+          <i class="fas fa-bell"></i>
+          <span class="notif-dot"></span>
+        </button>
         <div class="user-info">
           <div class="user-avatar-sm admin-avatar">A</div>
           <span>Admin</span>
@@ -61,10 +81,11 @@
     <!-- DASHBOARD PAGE -->
     <div class="page active" id="page-dashboard">
       <div class="page-header">
-        <h1>ড্যাশবোর্ড 📊</h1>
+        <h1>📊 ড্যাশবোর্ড ওভারভিউ</h1>
         <p>Skills BD Academy এর সামগ্রিক পরিসংখ্যান</p>
       </div>
 
+      <!-- STATS -->
       <div class="stats-grid">
         <div class="stat-card green">
           <div class="stat-icon"><i class="fas fa-users"></i></div>
@@ -88,11 +109,31 @@
           </div>
         </div>
         <div class="stat-card purple">
-          <div class="stat-icon"><i class="fas fa-taka-sign"></i></div>
+          <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
           <div class="stat-info">
             <span class="stat-num" id="totalRevenue">০</span>
-            <span class="stat-label">মোট আয় (৳)</span>
+            <span class="stat-label">মোট আয়</span>
           </div>
+        </div>
+      </div>
+
+      <!-- QUICK ACTIONS -->
+      <div class="quick-actions">
+        <div class="quick-action-btn" onclick="switchPage('courses')">
+          <span class="quick-action-icon">➕</span>
+          <span>নতুন কোর্স</span>
+        </div>
+        <div class="quick-action-btn" onclick="switchPage('payments')">
+          <span class="quick-action-icon">💳</span>
+          <span>পেমেন্ট যাচাই</span>
+        </div>
+        <div class="quick-action-btn" onclick="switchPage('students')">
+          <span class="quick-action-icon">👥</span>
+          <span>স্টুডেন্ট দেখুন</span>
+        </div>
+        <div class="quick-action-btn" onclick="window.open('/courses.html')">
+          <span class="quick-action-icon">🌐</span>
+          <span>ওয়েবসাইট</span>
         </div>
       </div>
 
@@ -100,9 +141,9 @@
       <div class="section-card">
         <div class="section-card-header">
           <h2><i class="fas fa-clock"></i> পেন্ডিং পেমেন্ট</h2>
-          <a href="#" class="btn btn-primary btn-sm" onclick="switchPage('payments')">
-            সব দেখুন
-          </a>
+          <button class="btn btn-primary btn-sm" onclick="switchPage('payments')">
+            সব দেখুন <i class="fas fa-arrow-right"></i>
+          </button>
         </div>
         <div id="dashPendingPayments">
           <div class="loading-state"><i class="fas fa-spinner fa-spin"></i></div>
@@ -113,11 +154,10 @@
     <!-- COURSES PAGE -->
     <div class="page" id="page-courses">
       <div class="page-header">
-        <h1>কোর্স ম্যানেজমেন্ট 📚</h1>
+        <h1>📚 কোর্স ম্যানেজমেন্ট</h1>
         <p>কোর্স যোগ করুন, সম্পাদনা করুন বা মুছুন</p>
       </div>
 
-      <!-- ADD COURSE FORM -->
       <div class="section-card">
         <h2><i class="fas fa-plus-circle"></i> নতুন কোর্স যোগ করুন</h2>
         <div id="courseAlertBox"></div>
@@ -136,14 +176,13 @@
                 <i class="fas fa-tag"></i>
                 <select id="courseType" required>
                   <option value="">সিলেক্ট করুন</option>
-                  <option value="recorded">রেকর্ড কোর্স</option>
-                  <option value="live">লাইভ কোর্স</option>
-                  <option value="free">ফ্রি কোর্স</option>
+                  <option value="recorded">📹 রেকর্ড কোর্স</option>
+                  <option value="live">🔴 লাইভ কোর্স</option>
+                  <option value="free">✨ ফ্রি কোর্স</option>
                 </select>
               </div>
             </div>
           </div>
-
           <div class="form-row">
             <div class="form-group">
               <label>মূল্য (টাকা) *</label>
@@ -160,20 +199,17 @@
               </div>
             </div>
           </div>
-
           <div class="form-group">
             <label>কোর্স বিবরণ *</label>
-            <textarea id="courseDesc" placeholder="কোর্স সম্পর্কে বিস্তারিত লিখুন" rows="3" required></textarea>
+            <textarea id="courseDesc" placeholder="কোর্স সম্পর্কে বিস্তারিত লিখুন" required></textarea>
           </div>
-
           <div class="form-group" id="whatsappGroup" style="display:none">
-            <label>WhatsApp গ্রুপ লিংক (লাইভ কোর্সের জন্য)</label>
+            <label>WhatsApp গ্রুপ লিংক</label>
             <div class="input-wrapper">
               <i class="fab fa-whatsapp"></i>
               <input type="url" id="whatsappLink" placeholder="https://chat.whatsapp.com/...">
             </div>
           </div>
-
           <div class="form-group">
             <label>থাম্বনেইল URL (ঐচ্ছিক)</label>
             <div class="input-wrapper">
@@ -181,19 +217,16 @@
               <input type="url" id="courseThumbnail" placeholder="https://...">
             </div>
           </div>
-
           <div class="form-check-inline">
             <input type="checkbox" id="coursePublished">
-            <label for="coursePublished">এখনই প্রকাশ করুন</label>
+            <label for="coursePublished">✅ এখনই প্রকাশ করুন</label>
           </div>
-
           <button type="submit" class="btn btn-primary">
             <i class="fas fa-plus"></i> কোর্স যোগ করুন
           </button>
         </form>
       </div>
 
-      <!-- COURSES LIST -->
       <div class="section-card">
         <div class="section-card-header">
           <h2><i class="fas fa-list"></i> সব কোর্স</h2>
@@ -210,25 +243,15 @@
     <!-- PAYMENTS PAGE -->
     <div class="page" id="page-payments">
       <div class="page-header">
-        <h1>পেমেন্ট যাচাই 💳</h1>
+        <h1>💳 পেমেন্ট যাচাই</h1>
         <p>স্টুডেন্টদের পেমেন্ট অনুমোদন বা বাতিল করুন</p>
       </div>
-
       <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all" onclick="filterPayments('all', this)">
-          সব
-        </button>
-        <button class="filter-btn" data-filter="pending" onclick="filterPayments('pending', this)">
-          ⏳ পেন্ডিং
-        </button>
-        <button class="filter-btn" data-filter="approved" onclick="filterPayments('approved', this)">
-          ✅ অনুমোদিত
-        </button>
-        <button class="filter-btn" data-filter="rejected" onclick="filterPayments('rejected', this)">
-          ❌ বাতিল
-        </button>
+        <button class="filter-btn active" onclick="filterPayments('all', this)">সব</button>
+        <button class="filter-btn" onclick="filterPayments('pending', this)">⏳ পেন্ডিং</button>
+        <button class="filter-btn" onclick="filterPayments('approved', this)">✅ অনুমোদিত</button>
+        <button class="filter-btn" onclick="filterPayments('rejected', this)">❌ বাতিল</button>
       </div>
-
       <div class="section-card">
         <div id="paymentsList">
           <div class="loading-state"><i class="fas fa-spinner fa-spin"></i></div>
@@ -239,7 +262,7 @@
     <!-- STUDENTS PAGE -->
     <div class="page" id="page-students">
       <div class="page-header">
-        <h1>স্টুডেন্ট লিস্ট 👥</h1>
+        <h1>👥 স্টুডেন্ট লিস্ট</h1>
         <p>সকল নিবন্ধিত শিক্ষার্থীর তালিকা</p>
       </div>
       <div class="section-card">
@@ -256,7 +279,7 @@
 <div class="modal" id="lessonModal">
   <div class="modal-box">
     <div class="modal-header">
-      <h3 id="modalCourseTitle">ক্লাস যোগ করুন</h3>
+      <h3 id="modalCourseTitle">📹 ক্লাস যোগ করুন</h3>
       <button onclick="closeModal()" class="modal-close">
         <i class="fas fa-times"></i>
       </button>
@@ -275,8 +298,9 @@
         <div class="form-group">
           <label>YouTube ভিডিও URL *</label>
           <div class="input-wrapper">
-            <i class="fab fa-youtube"></i>
-            <input type="url" id="lessonVideo" placeholder="https://www.youtube.com/watch?v=..." required>
+            <i class="fab fa-youtube" style="color:#EF4444"></i>
+            <input type="url" id="lessonVideo"
+              placeholder="https://www.youtube.com/watch?v=..." required>
           </div>
         </div>
         <div class="form-row">
@@ -303,8 +327,6 @@
           <i class="fas fa-plus"></i> ক্লাস যোগ করুন
         </button>
       </form>
-
-      <!-- EXISTING LESSONS -->
       <div id="existingLessons" style="margin-top:24px"></div>
     </div>
   </div>
@@ -312,5 +334,17 @@
 
 <script src="/js/auth.js"></script>
 <script src="/js/admin.js"></script>
+<script>
+// Sidebar toggle
+document.getElementById('sidebarToggle').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+});
+
+document.getElementById('sidebarOverlay').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+});
+</script>
 </body>
 </html>
