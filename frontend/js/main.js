@@ -48,10 +48,10 @@ const animateCounters = () => {
   });
 };
 
-// Counter Observer
-const heroStats = document.querySelector('.hero-stats');
-if (heroStats) {
-  const observer = new IntersectionObserver((entries) => {
+// Counter - সরাসরি চালু করুন
+setTimeout(() => {
+  animateCounters();
+}, 1000);
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         animateCounters();

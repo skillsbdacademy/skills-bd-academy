@@ -635,20 +635,20 @@ img { max-width: 100%; }
 }
 
 .hero-mini-card-1 {
-  top: 10%;
-  right: -20px;
+  top: 5%;
+  right: 0px;
   animation-delay: 0.5s;
 }
 
 .hero-mini-card-2 {
-  bottom: 15%;
-  left: -30px;
+  bottom: 10%;
+  left: 0px;
   animation-delay: 1s;
 }
 
 .hero-mini-card-3 {
-  top: 55%;
-  right: -40px;
+  top: 50%;
+  right: 0px;
   animation-delay: 1.5s;
 }
 
