@@ -6,34 +6,54 @@
   <title>ড্যাশবোর্ড - Skills BD Academy</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/dashboard.css">
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<!-- SIDEBAR -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
 <div class="dashboard-layout">
+
+  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
       <span>🎓</span>
       <span>Skills BD <strong>Academy</strong></span>
     </div>
 
+    <div class="sidebar-user">
+      <div class="sidebar-user-avatar" id="sidebarAvatar">অ</div>
+      <div class="sidebar-user-info">
+        <h4 id="sidebarName">লোড হচ্ছে...</h4>
+        <span>শিক্ষার্থী</span>
+      </div>
+    </div>
+
     <nav class="sidebar-nav">
+      <div class="nav-section-title">মূল মেনু</div>
       <a href="#" class="nav-item active" data-page="overview">
         <i class="fas fa-home"></i> ওভারভিউ
       </a>
       <a href="#" class="nav-item" data-page="myCourses">
         <i class="fas fa-book-open"></i> আমার কোর্স
+        <span class="nav-badge" id="coursesBadge">০</span>
       </a>
       <a href="#" class="nav-item" data-page="payments">
         <i class="fas fa-credit-card"></i> পেমেন্ট ইতিহাস
       </a>
+
+      <div class="nav-section-title">অ্যাকাউন্ট</div>
       <a href="#" class="nav-item" data-page="profile">
         <i class="fas fa-user"></i> প্রোফাইল
       </a>
       <a href="/courses.html" class="nav-item">
-        <i class="fas fa-graduation-cap"></i> সব কোর্স
+        <i class="fas fa-graduation-cap"></i> সব কোর্স দেখুন
+      </a>
+
+      <div class="nav-section-title">অন্যান্য</div>
+      <a href="/index.html" class="nav-item">
+        <i class="fas fa-home"></i> হোমপেজ
       </a>
       <a href="#" class="nav-item logout-btn" onclick="logout()">
         <i class="fas fa-sign-out-alt"></i> লগআউট
@@ -41,31 +61,37 @@
     </nav>
   </aside>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main class="dashboard-main">
-    <!-- TOP BAR -->
+
+    <!-- TOPBAR -->
     <div class="topbar">
       <button class="sidebar-toggle" id="sidebarToggle">
         <i class="fas fa-bars"></i>
       </button>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:14px;color:var(--gray-400)">স্বাগতম,</span>
+        <span style="font-size:15px;font-weight:700;color:var(--gray-800)" id="topbarName">শিক্ষার্থী</span>
+      </div>
       <div class="topbar-right">
-        <div class="user-info">
+        <button class="topbar-notification">
+          <i class="fas fa-bell"></i>
+          <span class="notif-dot"></span>
+        </button>
+        <div class="user-info" id="topUserInfo">
           <div class="user-avatar-sm" id="topAvatar">অ</div>
           <span id="topUserName">লোড হচ্ছে...</span>
         </div>
       </div>
     </div>
 
-    <!-- PAGES -->
-
     <!-- OVERVIEW PAGE -->
     <div class="page active" id="page-overview">
       <div class="page-header">
-        <h1>স্বাগতম, <span id="welcomeName">শিক্ষার্থী</span>! 👋</h1>
-        <p>আপনার লার্নিং জার্নি চালিয়ে যান</p>
+        <h1>👋 আপনার ড্যাশবোর্ড</h1>
+        <p>আপনার লার্নিং জার্নি ট্র্যাক করুন</p>
       </div>
 
-      <!-- STATS -->
       <div class="stats-grid">
         <div class="stat-card green">
           <div class="stat-icon"><i class="fas fa-book"></i></div>
@@ -89,7 +115,7 @@
           </div>
         </div>
         <div class="stat-card purple">
-          <div class="stat-icon"><i class="fas fa-certificate"></i></div>
+          <div class="stat-icon"><i class="fas fa-trophy"></i></div>
           <div class="stat-info">
             <span class="stat-num" id="completedCourses">০</span>
             <span class="stat-label">সম্পন্ন কোর্স</span>
@@ -97,11 +123,12 @@
         </div>
       </div>
 
-      <!-- ENROLLED COURSES -->
       <div class="section-card">
         <div class="section-card-header">
           <h2><i class="fas fa-book-open"></i> আমার কোর্সসমূহ</h2>
-          <a href="/courses.html" class="btn btn-primary btn-sm">নতুন কোর্স কিনুন</a>
+          <a href="/courses.html" class="btn btn-primary btn-sm">
+            <i class="fas fa-plus"></i> নতুন কোর্স
+          </a>
         </div>
         <div id="enrolledCoursesList">
           <div class="empty-state">
@@ -112,10 +139,9 @@
         </div>
       </div>
 
-      <!-- RECENT PAYMENTS -->
       <div class="section-card">
         <div class="section-card-header">
-          <h2><i class="fas fa-credit-card"></i> সাম্প্রতিক পেমেন্ট</h2>
+          <h2><i class="fas fa-receipt"></i> সাম্প্রতিক পেমেন্ট</h2>
         </div>
         <div id="recentPayments">
           <div class="empty-state">
@@ -129,11 +155,11 @@
     <!-- MY COURSES PAGE -->
     <div class="page" id="page-myCourses">
       <div class="page-header">
-        <h1>আমার কোর্সসমূহ</h1>
+        <h1>📚 আমার কোর্সসমূহ</h1>
         <p>আপনার ক্রয় করা সব কোর্স</p>
       </div>
       <div class="courses-grid-dash" id="myCoursesGrid">
-        <div class="empty-state">
+        <div class="empty-state" style="grid-column:1/-1">
           <i class="fas fa-graduation-cap"></i>
           <p>এখনো কোনো কোর্সে ভর্তি হননি</p>
           <a href="/courses.html" class="btn btn-primary">কোর্স কিনুন</a>
@@ -144,7 +170,7 @@
     <!-- PAYMENTS PAGE -->
     <div class="page" id="page-payments">
       <div class="page-header">
-        <h1>পেমেন্ট ইতিহাস</h1>
+        <h1>💳 পেমেন্ট ইতিহাস</h1>
         <p>আপনার সব পেমেন্টের তালিকা</p>
       </div>
       <div class="section-card">
@@ -159,12 +185,11 @@
     <!-- PROFILE PAGE -->
     <div class="page" id="page-profile">
       <div class="page-header">
-        <h1>আমার প্রোফাইল</h1>
+        <h1>👤 আমার প্রোফাইল</h1>
         <p>আপনার তথ্য আপডেট করুন</p>
       </div>
 
       <div class="profile-grid">
-        <!-- PROFILE INFO -->
         <div class="section-card">
           <h2><i class="fas fa-user"></i> ব্যক্তিগত তথ্য</h2>
           <div id="profileAlertBox"></div>
@@ -172,10 +197,9 @@
             <div class="profile-avatar" id="profileAvatar">অ</div>
             <div>
               <h3 id="profileName">লোড হচ্ছে...</h3>
-              <span id="profileRole" class="role-badge">শিক্ষার্থী</span>
+              <span class="role-badge">শিক্ষার্থী</span>
             </div>
           </div>
-
           <form id="profileForm">
             <div class="form-group">
               <label>পূর্ণ নাম</label>
@@ -185,7 +209,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label>ইমেইল (পরিবর্তন করা যাবে না)</label>
+              <label>ইমেইল (পরিবর্তন হবে না)</label>
               <div class="input-wrapper">
                 <i class="fas fa-envelope"></i>
                 <input type="email" id="profileEmail" disabled>
@@ -199,12 +223,11 @@
               </div>
             </div>
             <button type="submit" class="btn btn-primary">
-              <i class="fas fa-save"></i> প্রোফাইল আপডেট করুন
+              <i class="fas fa-save"></i> আপডেট করুন
             </button>
           </form>
         </div>
 
-        <!-- CHANGE PASSWORD -->
         <div class="section-card">
           <h2><i class="fas fa-lock"></i> পাসওয়ার্ড পরিবর্তন</h2>
           <div id="passwordAlertBox"></div>

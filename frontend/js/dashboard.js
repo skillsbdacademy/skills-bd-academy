@@ -1,4 +1,3 @@
-// Auth চেক
 requireAuth();
 
 const user = getUser();
@@ -6,24 +5,23 @@ let userData = null;
 
 // ===== INIT =====
 const init = async () => {
-  // User তথ্য দেখান
   if (user) {
-    document.getElementById('welcomeName').textContent = user.name;
+    const initial = user.name.charAt(0).toUpperCase();
+    document.getElementById('sidebarAvatar').textContent = initial;
+    document.getElementById('sidebarName').textContent = user.name;
+    document.getElementById('topAvatar').textContent = initial;
     document.getElementById('topUserName').textContent = user.name;
-    document.getElementById('topAvatar').textContent = user.name.charAt(0).toUpperCase();
-    document.getElementById('profileName').textContent = user.name;
-    document.getElementById('profileAvatar').textContent = user.name.charAt(0).toUpperCase();
+    document.getElementById('topbarName').textContent = user.name;
     document.getElementById('profileNameInput').value = user.name;
     document.getElementById('profileEmail').value = user.email;
     document.getElementById('profilePhone').value = user.phone || '';
-    document.getElementById('profileRole').textContent =
-      user.role === 'admin' ? 'অ্যাডমিন' : 'শিক্ষার্থী';
+    document.getElementById('profileName').textContent = user.name;
+    document.getElementById('profileAvatar').textContent = initial;
   }
-
   await loadDashboardData();
 };
 
-// ===== DASHBOARD DATA =====
+// ===== LOAD DATA =====
 const loadDashboardData = async () => {
   try {
     const data = await apiCall('/auth/me');
@@ -41,13 +39,13 @@ const loadDashboardData = async () => {
 const renderOverview = () => {
   const courses = userData.enrolledCourses || [];
   const completed = courses.filter(c => c.progress >= 100).length;
+  const active = courses.filter(c => c.progress > 0 && c.progress < 100).length;
 
   document.getElementById('totalCourses').textContent = courses.length;
-  document.getElementById('activeCourses').textContent =
-    courses.filter(c => c.progress > 0 && c.progress < 100).length;
+  document.getElementById('activeCourses').textContent = active;
   document.getElementById('completedCourses').textContent = completed;
+  document.getElementById('coursesBadge').textContent = courses.length;
 
-  // Enrolled courses list
   const container = document.getElementById('enrolledCoursesList');
   if (courses.length === 0) {
     container.innerHTML = `
@@ -61,26 +59,26 @@ const renderOverview = () => {
 
   container.innerHTML = `
     <div class="courses-grid-dash">
-      ${courses.slice(0, 3).map(enrollment => `
+      ${courses.slice(0, 3).map(e => `
         <div class="dash-course-card">
           <div class="dash-course-thumb">
-            ${enrollment.course?.thumbnail
-              ? `<img src="${enrollment.course.thumbnail}" alt="">`
+            ${e.course?.thumbnail
+              ? `<img src="${e.course.thumbnail}" alt="">`
               : '🎓'}
             <div class="progress-bar-wrap">
-              <div class="progress-bar-fill" style="width:${enrollment.progress || 0}%"></div>
+              <div class="progress-bar-fill" style="width:${e.progress || 0}%"></div>
             </div>
           </div>
           <div class="dash-course-body">
-            <h3>${enrollment.course?.title || 'কোর্স'}</h3>
+            <h3>${e.course?.title || 'কোর্স'}</h3>
             <div class="progress-info">
-              <span>প্রগ্রেস: ${enrollment.progress || 0}%</span>
-              <span class="course-type-badge badge-${enrollment.course?.type}">
-                ${enrollment.course?.type === 'recorded' ? 'রেকর্ড'
-                  : enrollment.course?.type === 'live' ? 'লাইভ' : 'ফ্রি'}
+              <span>প্রগ্রেস: ${e.progress || 0}%</span>
+              <span class="course-type-badge badge-${e.course?.type}" style="font-size:11px;padding:3px 8px">
+                ${e.course?.type === 'recorded' ? 'রেকর্ড'
+                  : e.course?.type === 'live' ? 'লাইভ' : 'ফ্রি'}
               </span>
             </div>
-            <a href="/learn.html?id=${enrollment.course?._id}"
+            <a href="/learn.html?id=${e.course?._id}"
                class="btn btn-primary btn-full btn-sm">
               <i class="fas fa-play"></i> শেখা শুরু করুন
             </a>
@@ -97,7 +95,7 @@ const renderMyCourses = () => {
 
   if (courses.length === 0) {
     container.innerHTML = `
-      <div class="empty-state">
+      <div class="empty-state" style="grid-column:1/-1">
         <i class="fas fa-graduation-cap"></i>
         <p>এখনো কোনো কোর্সে ভর্তি হননি</p>
         <a href="/courses.html" class="btn btn-primary">কোর্স কিনুন</a>
@@ -105,23 +103,23 @@ const renderMyCourses = () => {
     return;
   }
 
-  container.innerHTML = courses.map(enrollment => `
+  container.innerHTML = courses.map(e => `
     <div class="dash-course-card">
       <div class="dash-course-thumb">
-        ${enrollment.course?.thumbnail
-          ? `<img src="${enrollment.course.thumbnail}" alt="">`
+        ${e.course?.thumbnail
+          ? `<img src="${e.course.thumbnail}" alt="">`
           : '🎓'}
         <div class="progress-bar-wrap">
-          <div class="progress-bar-fill" style="width:${enrollment.progress || 0}%"></div>
+          <div class="progress-bar-fill" style="width:${e.progress || 0}%"></div>
         </div>
       </div>
       <div class="dash-course-body">
-        <h3>${enrollment.course?.title || 'কোর্স'}</h3>
+        <h3>${e.course?.title || 'কোর্স'}</h3>
         <div class="progress-info">
-          <span>প্রগ্রেস: ${enrollment.progress || 0}%</span>
-          <span>${new Date(enrollment.enrolledAt).toLocaleDateString('bn-BD')}</span>
+          <span>প্রগ্রেস: ${e.progress || 0}%</span>
+          <span>${new Date(e.enrolledAt).toLocaleDateString('bn-BD')}</span>
         </div>
-        <a href="/learn.html?id=${enrollment.course?._id}"
+        <a href="/learn.html?id=${e.course?._id}"
            class="btn btn-primary btn-full btn-sm">
           <i class="fas fa-play"></i> শেখা শুরু করুন
         </a>
@@ -144,13 +142,21 @@ const loadPayments = async () => {
         <p>কোনো পেমেন্ট নেই</p>
       </div>`;
     document.getElementById('pendingPayments').textContent = '০';
+
+    const recentContainer = document.getElementById('recentPayments');
+    if (recentContainer) {
+      recentContainer.innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-receipt"></i>
+          <p>কোনো পেমেন্ট নেই</p>
+        </div>`;
+    }
     return;
   }
 
   const pending = data.payments.filter(p => p.status === 'pending').length;
   document.getElementById('pendingPayments').textContent = pending;
 
-  // Recent payments in overview
   const recentContainer = document.getElementById('recentPayments');
   if (recentContainer) {
     recentContainer.innerHTML = buildPaymentTable(data.payments.slice(0, 3));
@@ -176,9 +182,9 @@ const buildPaymentTable = (payments) => `
         ${payments.map(p => `
           <tr>
             <td><strong>${p.course?.title || 'কোর্স'}</strong></td>
-            <td>৳${p.amount}</td>
+            <td style="font-weight:700;color:var(--primary)">৳${p.amount}</td>
             <td>${p.method === 'bkash' ? '📱 bKash' : '📱 Nagad'}</td>
-            <td><code>${p.transactionId}</code></td>
+            <td><code style="background:var(--gray-100);padding:2px 8px;border-radius:6px;font-size:12px">${p.transactionId}</code></td>
             <td>${new Date(p.createdAt).toLocaleDateString('bn-BD')}</td>
             <td>
               <span class="status-badge status-${p.status}">
@@ -203,10 +209,10 @@ document.getElementById('profileForm').addEventListener('submit', async (e) => {
   if (data.success) {
     const updatedUser = { ...getUser(), name, phone };
     localStorage.setItem('skillsbd_user', JSON.stringify(updatedUser));
-    showAlert('প্রোফাইল আপডেট হয়েছে ✅', 'success', 'profileAlertBox');
+    showAlert('✅ প্রোফাইল আপডেট হয়েছে', 'success', 'profileAlertBox');
     document.getElementById('profileName').textContent = name;
     document.getElementById('topUserName').textContent = name;
-    document.getElementById('welcomeName').textContent = name;
+    document.getElementById('sidebarName').textContent = name;
   } else {
     showAlert(data.message, 'error', 'profileAlertBox');
   }
@@ -220,7 +226,7 @@ document.getElementById('passwordForm').addEventListener('submit', async (e) => 
   const confirmNewPassword = document.getElementById('confirmNewPassword').value;
 
   if (newPassword !== confirmNewPassword) {
-    showAlert('নতুন পাসওয়ার্ড দুটো মিলছে না', 'error', 'passwordAlertBox');
+    showAlert('নতুন পাসওয়ার্ড মিলছে না', 'error', 'passwordAlertBox');
     return;
   }
 
@@ -231,7 +237,7 @@ document.getElementById('passwordForm').addEventListener('submit', async (e) => 
 
   const data = await apiCall('/auth/change-password', 'PUT', { oldPassword, newPassword });
   if (data.success) {
-    showAlert('পাসওয়ার্ড পরিবর্তন হয়েছে ✅', 'success', 'passwordAlertBox');
+    showAlert('✅ পাসওয়ার্ড পরিবর্তন হয়েছে', 'success', 'passwordAlertBox');
     document.getElementById('passwordForm').reset();
   } else {
     showAlert(data.message, 'error', 'passwordAlertBox');
@@ -244,25 +250,29 @@ document.querySelectorAll('.nav-item[data-page]').forEach(item => {
     e.preventDefault();
     const page = item.getAttribute('data-page');
 
-    // Active class
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     item.classList.add('active');
 
-    // Page show
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(`page-${page}`).classList.add('active');
+    document.getElementById(`page-${page}`)?.classList.add('active');
 
-    // Payments load
     if (page === 'payments') loadPayments();
 
     // Mobile sidebar বন্ধ
     document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('show');
   });
 });
 
 // ===== SIDEBAR TOGGLE =====
 document.getElementById('sidebarToggle').addEventListener('click', () => {
   document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+});
+
+document.getElementById('sidebarOverlay').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
 });
 
 // ===== START =====
