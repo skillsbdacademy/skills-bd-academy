@@ -667,8 +667,20 @@ window.addEventListener('scroll', () => {
   else nav.classList.remove('scrolled');
 });
 
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('open');
+const hamburgerBtn = document.getElementById('hamburger');
+const navLinksEl = document.getElementById('navLinks');
+
+if (hamburgerBtn) {
+  hamburgerBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navLinksEl.classList.toggle('open');
+  });
+}
+
+document.addEventListener('click', (e) => {
+  if (!hamburgerBtn?.contains(e.target) && !navLinksEl?.contains(e.target)) {
+    navLinksEl?.classList.remove('open');
+  }
 });
 </script>
 <script src="/js/theme.js"></script>
