@@ -1,0 +1,540 @@
+/* ===== DARK MODE ===== */
+[data-theme="dark"] {
+  --white: #0F0F1A;
+  --gray-50: #1A1A2E;
+  --gray-100: #16213E;
+  --gray-200: #1E2A45;
+  --gray-300: #2A3A55;
+  --gray-400: #4A6080;
+  --gray-500: #6A80A0;
+  --gray-600: #8A9FBF;
+  --gray-700: #AAC0DF;
+  --gray-800: #C8D8F0;
+  --gray-900: #E8F0FF;
+  --primary-light: rgba(124,58,237,0.15);
+  --secondary-light: rgba(22,163,74,0.15);
+  --accent-light: rgba(245,158,11,0.15);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow: 0 4px 6px rgba(0,0,0,0.3);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.4);
+  --shadow-xl: 0 20px 40px rgba(0,0,0,0.5);
+  --shadow-purple: 0 10px 40px rgba(124,58,237,0.4);
+}
+
+/* ===== DARK BODY ===== */
+[data-theme="dark"] body {
+  background: #0F0F1A;
+  color: #C8D8F0;
+}
+
+/* ===== DARK NAVBAR ===== */
+[data-theme="dark"] .navbar.scrolled,
+[data-theme="dark"] .navbar-static {
+  background: rgba(15,15,26,0.95) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .navbar.scrolled .nav-brand,
+[data-theme="dark"] .navbar-static .nav-brand {
+  color: white !important;
+}
+
+[data-theme="dark"] .navbar.scrolled .nav-links a,
+[data-theme="dark"] .navbar-static .nav-links a {
+  color: rgba(255,255,255,0.6) !important;
+}
+
+[data-theme="dark"] .navbar.scrolled .nav-links a:hover,
+[data-theme="dark"] .navbar-static .nav-links a:hover {
+  color: white !important;
+}
+
+[data-theme="dark"] .navbar.scrolled .hamburger,
+[data-theme="dark"] .navbar-static .hamburger {
+  color: white !important;
+}
+
+[data-theme="dark"] .nav-links {
+  background: #0F0F1A !important;
+  border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+/* ===== DARK SECTIONS ===== */
+[data-theme="dark"] .features,
+[data-theme="dark"] .popular-courses,
+[data-theme="dark"] .contact {
+  background: #1A1A2E !important;
+}
+
+[data-theme="dark"] .course-types,
+[data-theme="dark"] .testimonials {
+  background: #0F0F1A !important;
+}
+
+/* ===== DARK CARDS ===== */
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .course-card,
+[data-theme="dark"] .testimonial-card,
+[data-theme="dark"] .type-card.recorded,
+[data-theme="dark"] .type-card.free {
+  background: #1A1A2E !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .type-card.live {
+  background: #1A1A2E !important;
+  border-color: rgba(239,68,68,0.2) !important;
+}
+
+[data-theme="dark"] .feature-card h3,
+[data-theme="dark"] .course-title,
+[data-theme="dark"] .testimonial-author strong {
+  color: #E8F0FF !important;
+}
+
+[data-theme="dark"] .feature-card p,
+[data-theme="dark"] .testimonial-card p {
+  color: #8A9FBF !important;
+}
+
+/* ===== DARK CONTACT ===== */
+[data-theme="dark"] .contact-form-box {
+  background: #1A1A2E !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .form-input {
+  background: #16213E !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: #C8D8F0 !important;
+}
+
+[data-theme="dark"] .form-input:focus {
+  border-color: var(--primary) !important;
+  background: #1E2A45 !important;
+}
+
+/* ===== DARK AUTH ===== */
+[data-theme="dark"] .auth-right {
+  background: #0F0F1A !important;
+}
+
+[data-theme="dark"] .auth-form-box {
+  background: #1A1A2E !important;
+  border-color: rgba(255,255,255,0.08) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4) !important;
+}
+
+[data-theme="dark"] .auth-form-box h1 {
+  color: #E8F0FF !important;
+}
+
+[data-theme="dark"] .auth-subtitle {
+  color: #6A80A0 !important;
+}
+
+[data-theme="dark"] .form-group label {
+  color: #AAC0DF !important;
+}
+
+[data-theme="dark"] .input-wrapper input {
+  background: #16213E !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: #C8D8F0 !important;
+}
+
+[data-theme="dark"] .input-wrapper input:focus {
+  background: #1E2A45 !important;
+  border-color: var(--primary) !important;
+}
+
+[data-theme="dark"] .auth-divider::before {
+  background: rgba(255,255,255,0.1) !important;
+}
+
+[data-theme="dark"] .auth-divider span {
+  background: #1A1A2E !important;
+  color: #4A6080 !important;
+}
+
+[data-theme="dark"] .auth-switch {
+  color: #6A80A0 !important;
+}
+
+[data-theme="dark"] .back-home {
+  color: #4A6080 !important;
+}
+
+[data-theme="dark"] .auth-right-logo {
+  color: #E8F0FF !important;
+}
+
+/* ===== DARK DASHBOARD ===== */
+[data-theme="dark"] .dashboard-layout {
+  background: #0F0F1A !important;
+}
+
+[data-theme="dark"] .dashboard-main {
+  background: #0F0F1A !important;
+}
+
+[data-theme="dark"] .topbar {
+  background: #1A1A2E !important;
+  border-bottom-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .topbar-title {
+  color: #E8F0FF !important;
+}
+
+[data-theme="dark"] .topbar-notification {
+  background: #16213E !important;
+  color: #8A9FBF !important;
+}
+
+[data-theme="dark"] .user-info {
+  background: #16213E !important;
+  border-color: rgba(255,255,255,0.1) !important;
+}
+
+[data-theme="dark"] .user-info span {
+  color: #C8D8F0 !important;
+}
+
+[data-theme="dark"] .sidebar-toggle {
+  background: #16213E !important;
+  color: #8A9FBF !important;
+}
+
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .section-card {
+  background: #1A1A2E !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .stat-num {
+  color: #E8F0FF !important;
+}
+
+[data-theme="dark"] .section-card h2 {
+  color: #C8D8F0 !important;
+}
+
+[data-theme="dark"] .page-header h1 {
+  color: #E8F0FF !important;
+}
+
+[data-theme="dark"] .page-header p {
+  color: #6A80A0 !important;
+}
+
+[data-theme="dark"] .dash-course-card {
+  background: #16213E !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .dash-course-body h3 {
+  color: #C8D8F0 !important;
+}
+
+[data-theme="dark"] .payment-table th {
+  background: #16213E !important;
+  color: #6A80A0 !important;
+  border-bottom-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .payment-table td {
+  color: #AAC0DF !important;
+  border-bottom-color: rgba(255,255,255,0.05) !important;
+}
+
+[data-theme="dark"] .payment-table tr:hover td {
+  background: #16213E !important;
+}
+
+[data-theme="dark"] .profile-avatar-box {
+  background: rgba(124,58,237,0.15) !important;
+  border-color: rgba(124,58,237,0.2) !important;
+}
+
+[data-theme="dark"] .profile-avatar-box h3 {
+  color: #E8F0FF !important;
+}
+
+[data-theme="dark"] .input-wrapper input:disabled {
+  background: #16213E !important;
+  color: #4A6080 !important;
+}
+
+/* ===== DARK ADMIN ===== */
+[data-theme="dark"] .admin-table th {
+  background: #16213E !important;
+  color: #6A80A0 !important;
+  border-bottom-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .admin-table td {
+  color: #AAC0DF !important;
+  border-bottom-color: rgba(255,255,255,0.05) !important;
+}
+
+[data-theme="dark"] .admin-table tr:hover td {
+  background: #16213E !important;
+}
+
+[data-theme="dark"] .payment-card {
+  background: #1A1A2E !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .payment-student-info h4 {
+  color: #E8F0FF !important;
+}
+
+[data-theme="dark"] .payment-details {
+  background: #16213E !important;
+}
+
+[data-theme="dark"] .payment-detail-item span {
+  color: #C8D8F0 !important;
+}
+
+[data-theme="dark"] .payment-actions input {
+  background: #16213E !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: #C8D8F0 !important;
+}
+
+[data-theme="dark"] .filter-btn {
+  background: #1A1A2E !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: #8A9FBF !important;
+}
+
+[data-theme="dark"] .filter-btn.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
+  color: white !important;
+}
+
+[data-theme="dark"] .quick-action-btn {
+  background: #1A1A2E !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .quick-action-btn span {
+  color: #AAC0DF !important;
+}
+
+[data-theme="dark"] .quick-action-btn:hover {
+  background: rgba(124,58,237,0.15) !important;
+  border-color: rgba(124,58,237,0.3) !important;
+}
+
+[data-theme="dark"] .modal-box {
+  background: #1A1A2E !important;
+}
+
+[data-theme="dark"] .modal-header {
+  background: #1A1A2E !important;
+  border-bottom-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .modal-header h3 {
+  color: #E8F0FF !important;
+}
+
+[data-theme="dark"] .modal-close {
+  background: #16213E !important;
+  color: #8A9FBF !important;
+}
+
+[data-theme="dark"] .lesson-item {
+  background: #16213E !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .lesson-item-info h4 {
+  color: #C8D8F0 !important;
+}
+
+[data-theme="dark"] .form-group textarea,
+[data-theme="dark"] .form-group select {
+  background: #16213E !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: #C8D8F0 !important;
+}
+
+[data-theme="dark"] .form-check-inline {
+  background: #16213E !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .form-check-inline label {
+  color: #AAC0DF !important;
+}
+
+/* ===== DARK COURSES PAGE ===== */
+[data-theme="dark"] .courses-section {
+  background: #0F0F1A !important;
+}
+
+[data-theme="dark"] .filter-tab {
+  background: #1A1A2E !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: #8A9FBF !important;
+}
+
+[data-theme="dark"] .filter-tab.active {
+  color: white !important;
+}
+
+[data-theme="dark"] .courses-count {
+  color: #6A80A0 !important;
+}
+
+[data-theme="dark"] .course-card {
+  background: #1A1A2E !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .course-title {
+  color: #E8F0FF !important;
+}
+
+[data-theme="dark"] .course-desc {
+  color: #6A80A0 !important;
+}
+
+[data-theme="dark"] .course-footer {
+  border-top-color: rgba(255,255,255,0.08) !important;
+}
+
+/* ===== DARK COURSE DETAILS ===== */
+[data-theme="dark"] .course-body-section {
+  background: #0F0F1A !important;
+}
+
+[data-theme="dark"] .curriculum-box,
+[data-theme="dark"] .side-info-box,
+[data-theme="dark"] .buy-card {
+  background: #1A1A2E !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .curriculum-box h2,
+[data-theme="dark"] .side-info-box h3 {
+  color: #E8F0FF !important;
+}
+
+[data-theme="dark"] .curriculum-item {
+  background: #16213E !important;
+  border-color: rgba(255,255,255,0.06) !important;
+}
+
+[data-theme="dark"] .curriculum-item:hover {
+  background: #1E2A45 !important;
+  border-color: rgba(124,58,237,0.3) !important;
+}
+
+[data-theme="dark"] .curriculum-info h4 {
+  color: #C8D8F0 !important;
+}
+
+[data-theme="dark"] .buy-card-body {
+  background: #1A1A2E !important;
+}
+
+[data-theme="dark"] .buy-features {
+  background: #16213E !important;
+}
+
+[data-theme="dark"] .buy-price-note {
+  color: #6A80A0 !important;
+}
+
+[data-theme="dark"] .instructor-box {
+  background: #16213E !important;
+}
+
+[data-theme="dark"] .instructor-info h4 {
+  color: #E8F0FF !important;
+}
+
+/* ===== DARK TOGGLE BUTTON ===== */
+.theme-toggle {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(124,58,237,0.4);
+  z-index: 9999;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: 0 12px 32px rgba(124,58,237,0.5);
+}
+
+.theme-toggle .sun { display: none; }
+.theme-toggle .moon { display: block; }
+
+[data-theme="dark"] .theme-toggle .sun { display: block; }
+[data-theme="dark"] .theme-toggle .moon { display: none; }
+
+/* Dark scrollbar */
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #1A1A2E;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--primary);
+}
+
+/* Dark dropdown */
+[data-theme="dark"] .dropdown {
+  background: #1A1A2E !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .dropdown p {
+  color: #E8F0FF !important;
+  border-bottom-color: rgba(255,255,255,0.08) !important;
+}
+
+[data-theme="dark"] .dropdown a {
+  color: #8A9FBF !important;
+}
+
+[data-theme="dark"] .dropdown a:hover {
+  background: rgba(124,58,237,0.15) !important;
+  color: #C4B5FD !important;
+}
+
+/* Dark footer */
+[data-theme="dark"] .footer {
+  background: #080810 !important;
+}
+
+/* Dark alert */
+[data-theme="dark"] .alert-success {
+  background: rgba(22,163,74,0.15) !important;
+  border-color: rgba(22,163,74,0.3) !important;
+  color: #4ADE80 !important;
+}
+
+[data-theme="dark"] .alert-error {
+  background: rgba(239,68,68,0.15) !important;
+  border-color: rgba(239,68,68,0.3) !important;
+  color: #FCA5A5 !important;
+}
