@@ -48,15 +48,16 @@ const animateCounters = () => {
   });
 };
 
-// Counter Animation
-const startCounters = () => {
-  const counters = document.querySelectorAll('.stat-num');
+// ===== COUNTER ANIMATION =====
+const animateCounters = () => {
+  const counters = document.querySelectorAll('[data-target]');
   counters.forEach(counter => {
     const target = parseInt(counter.getAttribute('data-target'));
     if (!target) return;
 
+    counter.textContent = '0';
     let current = 0;
-    const increment = target / 60;
+    const increment = Math.ceil(target / 60);
 
     const timer = setInterval(() => {
       current += increment;
@@ -64,26 +65,16 @@ const startCounters = () => {
         counter.textContent = target;
         clearInterval(timer);
       } else {
-        counter.textContent = Math.floor(current);
+        counter.textContent = current;
       }
     }, 30);
   });
 };
 
-// Page load হলেই counter চালু
-window.addEventListener('load', () => {
-  setTimeout(startCounters, 1500);
+// Page load হলে counter চালু
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(animateCounters, 800);
 });
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounters();
-        observer.disconnect();
-      }
-    });
-  }, { threshold: 0.5 });
-  observer.observe(heroStats);
-}
-
 // ===== SCROLL REVEAL ANIMATION =====
 const revealElements = () => {
   const elements = document.querySelectorAll(
