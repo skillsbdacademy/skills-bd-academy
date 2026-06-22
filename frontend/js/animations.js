@@ -246,35 +246,61 @@ const initHamburger = () => {
 
   if (!hamburger || !navLinks) return;
 
-  hamburger.addEventListener('click', (e) => {
+  // পুরনো listener মুছুন
+  const newHamburger = hamburger.cloneNode(true);
+  hamburger.parentNode.replaceChild(newHamburger, hamburger);
+
+  newHamburger.addEventListener('click', (e) => {
+    e.preventDefault();
     e.stopPropagation();
     navLinks.classList.toggle('open');
 
-    const icon = hamburger.querySelector('i');
+    const icon = newHamburger.querySelector('i');
     if (navLinks.classList.contains('open')) {
-      icon?.classList.replace('fa-bars', 'fa-times');
+      icon?.classList.remove('fa-bars');
+      icon?.classList.add('fa-times');
     } else {
-      icon?.classList.replace('fa-times', 'fa-bars');
+      icon?.classList.remove('fa-times');
+      icon?.classList.add('fa-bars');
     }
   });
 
   document.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+    if (!newHamburger.contains(e.target) && !navLinks.contains(e.target)) {
       navLinks.classList.remove('open');
-      const icon = hamburger.querySelector('i');
-      icon?.classList.replace('fa-times', 'fa-bars');
+      const icon = newHamburger.querySelector('i');
+      icon?.classList.remove('fa-times');
+      icon?.classList.add('fa-bars');
     }
   });
 
-  // Nav link ক্লিক করলে বন্ধ হবে
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('open');
-      const icon = hamburger.querySelector('i');
-      icon?.classList.replace('fa-times', 'fa-bars');
+      const icon = newHamburger.querySelector('i');
+      icon?.classList.remove('fa-times');
+      icon?.classList.add('fa-bars');
     });
   });
 };
+
+// ===== INIT ALL =====
+document.addEventListener('DOMContentLoaded', () => {
+  createPageLoader();
+  initScrollReveal();
+  initRipple();
+  initScrollTop();
+  initCursorGlow();
+  initHamburger();
+
+  if (window.innerWidth > 768) {
+    initCardHover();
+  }
+
+  if (document.querySelector('.hero')) {
+    initSmartNavbar();
+  }
+});
 
 // DOMContentLoaded এ init করুন
 document.addEventListener('DOMContentLoaded', initHamburger);
