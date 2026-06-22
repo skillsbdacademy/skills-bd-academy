@@ -55,7 +55,8 @@
   }
 
   .nav-links li a::after { display: none !important; }
-  .nav-actions .btn { display: none !important; }
+  .nav-actions #loginBtn { display: none !important; }
+  .nav-actions #registerBtn { display: none !important; }
 
   .hamburger {
     display: flex !important;
@@ -83,6 +84,29 @@
   [data-theme="dark"] .nav-links li a:hover {
     background: rgba(124,58,237,0.15) !important;
     color: #C4B5FD !important;
+  }
+}
+/* Mobile এ Login/Register Nav এ দেখাবে */
+@media (max-width: 768px) {
+  .nav-links::after {
+    content: '';
+    display: block;
+    height: 1px;
+    background: var(--gray-200);
+    margin: 8px 0;
+  }
+
+  .mobile-auth-btns {
+    display: flex !important;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 0;
+  }
+
+  .mobile-auth-btns .btn {
+    width: 100% !important;
+    justify-content: center !important;
+    display: flex !important;
   }
 }
 
