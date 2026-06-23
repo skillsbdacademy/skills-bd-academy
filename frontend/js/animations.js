@@ -198,27 +198,32 @@ const initSmartNavbar = () => {
   if (!navbar) return;
 
   let lastScroll = 0;
-  let ticking = false;
 
   window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const currentScroll = window.scrollY;
+    const currentScroll = window.scrollY;
 
-        if (currentScroll > lastScroll && currentScroll > 200) {
-          navbar.style.transform = 'translateY(-100%)';
-        } else {
-          navbar.style.transform = 'translateY(0)';
-        }
-
-        lastScroll = currentScroll;
-        ticking = false;
-      });
-      ticking = true;
+    // Scroll direction detect
+    if (currentScroll > lastScroll && currentScroll > 300) {
+      // নিচে যাচ্ছে - navbar hide
+      navbar.style.transform = 'translateY(-100%)';
+    } else {
+      // উপরে আসছে - navbar show
+      navbar.style.transform = 'translateY(0)';
     }
+
+    // Transparent/Scrolled class
+    if (currentScroll > 50) {
+      navbar.classList.remove('transparent');
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.add('transparent');
+      navbar.classList.remove('scrolled');
+    }
+
+    lastScroll = currentScroll <= 0 ? 0 : currentScroll;
   });
 
-  navbar.style.transition = 'transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease';
+  navbar.style.transition = 'transform 0.4s ease, background 0.3s ease, box-shadow 0.3s ease';
 };
 
 // ===== INIT ALL =====
