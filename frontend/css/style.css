@@ -1637,3 +1637,25 @@ section { padding: 90px 0; }
   margin-bottom: 20px !important;
   background: linear-gradient(135deg, #EDE9FE, #DDD6FE) !important;
 }
+/* ===== LOGIN BUTTON FIX ===== */
+.btn-glass {
+  background: rgba(255,255,255,0.15) !important;
+  color: white !important;
+  border-color: rgba(255,255,255,0.4) !important;
+}
+
+.navbar.scrolled .btn-glass,
+.navbar-static .btn-glass {
+  background: transparent !important;
+  color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+#loginBtn {
+  color: white !important;
+}
+
+.navbar.scrolled #loginBtn,
+.navbar-static #loginBtn {
+  color: var(--primary) !important;
+}

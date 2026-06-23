@@ -1,6 +1,7 @@
 const API = window.location.hostname === 'localhost'
   ? 'http://localhost:5000/api'
   : '/api';
+  console.log('API URL:', API);
 
 // ===== NAVBAR SCROLL =====
 window.addEventListener('scroll', () => {
@@ -53,9 +54,15 @@ const loadPopularCourses = async () => {
 
   try {
     const res = await fetch(`${API}/courses`);
-    const data = await res.json();
 
-    if (data.success && data.courses.length > 0) {
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const data = await res.json();
+    console.log('Courses data:', data);
+
+    if (data.success && data.courses && data.courses.length > 0) {
       const courses = data.courses.slice(0, 3);
       container.innerHTML = courses.map(course => `
         <div class="course-card">
@@ -98,6 +105,15 @@ const loadPopularCourses = async () => {
           </div>
         </div>
       `).join('');
+
+      // Trigger scroll reveal for new cards
+      setTimeout(() => {
+        document.querySelectorAll('.course-card').forEach(el => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        });
+      }, 100);
+
     } else {
       container.innerHTML = `
         <div class="loading-spinner">
@@ -106,10 +122,11 @@ const loadPopularCourses = async () => {
         </div>`;
     }
   } catch (err) {
+    console.error('Course load error:', err);
     container.innerHTML = `
       <div class="loading-spinner">
         <i class="fas fa-exclamation-circle" style="color:var(--danger)"></i>
-        <p style="margin-top:16px">কোর্স লোড করতে সমস্যা হচ্ছে</p>
+        <p style="margin-top:16px">কোর্স লোড করতে সমস্যা হচ্ছে: ${err.message}</p>
       </div>`;
   }
 };
