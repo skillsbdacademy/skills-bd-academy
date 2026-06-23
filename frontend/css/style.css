@@ -1623,3 +1623,17 @@ section { padding: 90px 0; }
   -webkit-background-clip: unset !important;
   background-clip: unset !important;
 }
+/* Feature Icon - সব অবস্থায় দেখাবে */
+.feature-card .feature-icon-box {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: flex !important;
+  width: 64px !important;
+  height: 64px !important;
+  border-radius: 18px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 32px !important;
+  margin-bottom: 20px !important;
+  background: linear-gradient(135deg, #EDE9FE, #DDD6FE) !important;
+}

@@ -65,13 +65,21 @@
 /* ===== SCROLL REVEAL ===== */
 .reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Feature icon fix - reveal এর সাথে */
+.feature-card.reveal .feature-icon-box,
+.feature-card.revealed .feature-icon-box {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: flex !important;
 }
 
 .reveal-left {

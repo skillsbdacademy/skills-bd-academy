@@ -229,7 +229,28 @@ const initSmartNavbar = () => {
 // ===== INIT ALL =====
 document.addEventListener('DOMContentLoaded', () => {
   createPageLoader();
-  initScrollReveal();
+  const initScrollReveal = () => {
+  const elements = document.querySelectorAll(
+    '.feature-card, .type-card, .course-card, .testimonial-card, ' +
+    '.section-header, .stat-card, .contact-item, .footer-links'
+  );
+
+  elements.forEach((el, i) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = `${(i % 4) * 0.1}s`;
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+
+  elements.forEach(el => observer.observe(el));
+};
   initRipple();
   initScrollTop();
   initCursorGlow();
