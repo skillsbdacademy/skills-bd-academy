@@ -23,7 +23,7 @@ const startCounters = () => {
     if (!target) return;
     counter.textContent = '0';
     let current = 0;
-    const increment = Math.ceil(target / 60);
+    const increment = Math.ceil(target / 80);
     const timer = setInterval(() => {
       current += increment;
       if (current >= target) {
@@ -32,11 +32,17 @@ const startCounters = () => {
       } else {
         counter.textContent = current;
       }
-    }, 30);
+    }, 20);
   });
 };
 
+// Page load হলে counter চালু
 window.addEventListener('load', () => {
+  setTimeout(startCounters, 500);
+});
+
+// DOMContentLoaded এও চালু করুন
+document.addEventListener('DOMContentLoaded', () => {
   setTimeout(startCounters, 1000);
 });
 
