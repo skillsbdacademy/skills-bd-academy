@@ -1,7 +1,7 @@
+// ===== API URL =====
 const API = window.location.hostname === 'localhost'
   ? 'http://localhost:5000/api'
-  : '/api';
-  console.log('API URL:', API);
+  : window.location.origin + '/api';
 
 // ===== NAVBAR SCROLL =====
 window.addEventListener('scroll', () => {
@@ -37,35 +37,45 @@ const startCounters = () => {
   });
 };
 
-// Page load হলে counter চালু
-window.addEventListener('load', () => {
-  setTimeout(startCounters, 500);
-});
-
-// DOMContentLoaded এও চালু করুন
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(startCounters, 1000);
-});
+window.addEventListener('load', () => setTimeout(startCounters, 500));
+document.addEventListener('DOMContentLoaded', () => setTimeout(startCounters, 1000));
 
 // ===== LOAD POPULAR COURSES =====
 const loadPopularCourses = async () => {
   const container = document.getElementById('popularCourses');
   if (!container) return;
 
-  try {
-    const res = await fetch(`${API}/courses`);
+  container.innerHTML = `
+    <div class="loading-spinner" style="grid-column:1/-1">
+      <i class="fas fa-spinner fa-spin" style="color:var(--primary)"></i>
+      <p style="margin-top:16px">লোড হচ্ছে...</p>
+    </div>`;
 
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
+  try {
+    const apiUrl = window.location.hostname === 'localhost'
+      ? 'http://localhost:5000/api/courses'
+      : '/api/courses';
+
+    const res = await fetch(apiUrl);
+
+    if (!res.ok) throw new Error(`Status: ${res.status}`);
 
     const data = await res.json();
-    console.log('Courses data:', data);
 
     if (data.success && data.courses && data.courses.length > 0) {
-      const courses = data.courses.slice(0, 3);
+      const courses = data.courses.filter(c => c.isPublished).slice(0, 3);
+
+      if (courses.length === 0) {
+        container.innerHTML = `
+          <div class="loading-spinner" style="grid-column:1/-1">
+            <i class="fas fa-book-open" style="color:var(--primary)"></i>
+            <p style="margin-top:16px">শীঘ্রই কোর্স যোগ করা হবে</p>
+          </div>`;
+        return;
+      }
+
       container.innerHTML = courses.map(course => `
-        <div class="course-card">
+        <div class="course-card" style="opacity:1;transform:none">
           <div class="course-thumbnail">
             ${course.thumbnail
               ? `<img src="${course.thumbnail}" alt="${course.title}">`
@@ -106,17 +116,9 @@ const loadPopularCourses = async () => {
         </div>
       `).join('');
 
-      // Trigger scroll reveal for new cards
-      setTimeout(() => {
-        document.querySelectorAll('.course-card').forEach(el => {
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-        });
-      }, 100);
-
     } else {
       container.innerHTML = `
-        <div class="loading-spinner">
+        <div class="loading-spinner" style="grid-column:1/-1">
           <i class="fas fa-book-open" style="color:var(--primary)"></i>
           <p style="margin-top:16px">শীঘ্রই কোর্স যোগ করা হবে</p>
         </div>`;
@@ -124,26 +126,15 @@ const loadPopularCourses = async () => {
   } catch (err) {
     console.error('Course load error:', err);
     container.innerHTML = `
-      <div class="loading-spinner">
+      <div class="loading-spinner" style="grid-column:1/-1">
         <i class="fas fa-exclamation-circle" style="color:var(--danger)"></i>
-        <p style="margin-top:16px">কোর্স লোড করতে সমস্যা হচ্ছে: ${err.message}</p>
+        <p style="margin-top:16px">কোর্স লোড করতে সমস্যা হচ্ছে</p>
+        <button onclick="loadPopularCourses()" class="btn btn-outline btn-sm" style="margin-top:12px">
+          আবার চেষ্টা করুন
+        </button>
       </div>`;
   }
 };
-
-// ===== SHOW ALERT =====
-const showAlert = (message, type = 'success', containerId = 'alertBox') => {
-  const box = document.getElementById(containerId);
-  if (!box) return;
-  box.innerHTML = `
-    <div class="alert alert-${type}">
-      <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-      ${message}
-    </div>`;
-  setTimeout(() => { box.innerHTML = ''; }, 4000);
-};
-
-window.showAlert = showAlert;
 
 // ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -157,4 +148,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ===== INIT =====
-loadPopularCourses();
+document.addEventListener('DOMContentLoaded', () => {
+  loadPopularCourses();
+});
