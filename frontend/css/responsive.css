@@ -83,6 +83,33 @@
 
 .nav-actions #registerBtn i { display: none !important; }
 .nav-actions #userMenu { display: flex !important; }
+/* Hamburger সবসময় দেখাবে */
+.hamburger {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 10px !important;
+  background: rgba(255,255,255,0.15) !important;
+  color: white !important;
+  font-size: 18px !important;
+  border: none !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+}
+
+.navbar.scrolled .hamburger,
+.navbar-static .hamburger {
+  background: var(--gray-100) !important;
+  color: var(--gray-700) !important;
+}
+
+[data-theme="dark"] .navbar.scrolled .hamburger,
+[data-theme="dark"] .navbar-static .hamburger {
+  background: rgba(255,255,255,0.1) !important;
+  color: white !important;
+}
 
   .hamburger {
     display: flex !important;
