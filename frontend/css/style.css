@@ -1659,3 +1659,28 @@ section { padding: 90px 0; }
 .navbar-static #loginBtn {
   color: var(--primary) !important;
 }
+/* ===== MOBILE HERO FIX ===== */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100svh !important;
+    padding-top: 64px !important;
+  }
+
+  .hero .container {
+    padding: 32px 16px 40px !important;
+  }
+
+  /* Login button mobile */
+  #loginBtn {
+    color: white !important;
+    border-color: rgba(255,255,255,0.5) !important;
+    background: rgba(255,255,255,0.15) !important;
+    backdrop-filter: blur(10px) !important;
+  }
+
+  .navbar.scrolled #loginBtn {
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    background: transparent !important;
+  }
+}
